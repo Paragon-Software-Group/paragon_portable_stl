@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="is_reference_wrapper.h"
 // * 
@@ -12,17 +12,20 @@
 #ifndef PSTL_IS_REFERENCE_WRAPPER_H
 #define PSTL_IS_REFERENCE_WRAPPER_H
 
-#include "../../utility/general/functional/reference_wrapper.h"
 #include "../helper/integral_constant.h"
+#include "../cv_modifications/remove_cv.h"
 
 namespace portable_stl {
+
+template<class t_type> class reference_wrapper;
+
 namespace type_properties_helpers {
   /**
    * @brief t_type is reference wrapper type.
    * t_type is not reference wrapper implementation.
    * @tparam t_type the type for check.
    */
-  template<class t_type> class is_reference_wrapper final {
+  template<class t_type> class is_reference_wrapper_impl final {
   public:
     /**
      * @brief Result getter.
@@ -37,7 +40,7 @@ namespace type_properties_helpers {
    * t_type is reference wrapper implementation.
    * @tparam t_type the type for check.
    */
-  template<class t_type> class is_reference_wrapper<::portable_stl::reference_wrapper<t_type>> final {
+  template<class t_type> class is_reference_wrapper_impl<reference_wrapper<t_type>> final {
   public:
     /**
      * @brief Result getter.
@@ -53,7 +56,8 @@ namespace type_properties_helpers {
  * @tparam t_type the type for check.
  */
 template<class t_type>
-using is_reference_wrapper = typename ::portable_stl::type_properties_helpers::is_reference_wrapper<t_type>::type;
+using is_reference_wrapper = typename type_properties_helpers::is_reference_wrapper_impl<::portable_stl::remove_cv_t<t_type>>::type;
+
 } // namespace portable_stl
 
 #endif // PSTL_IS_REFERENCE_WRAPPER_H

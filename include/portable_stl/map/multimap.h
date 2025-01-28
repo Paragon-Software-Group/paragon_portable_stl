@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="multimap.h"
 // * 
@@ -301,8 +301,8 @@ public:
   static ::portable_stl::expected<multimap, ::portable_stl::portable_stl_error> make_multimap(
     t_input_iterator first, t_input_iterator last, key_compare const &comp, allocator_type const &alloc) {
     multimap ret(comp, alloc);
-    return ret.insert(first, last).transform([&ret](void) -> multimap {
-      return ::portable_stl::move(ret);
+    return ret.insert(first, last).and_then([&ret](void) -> ::portable_stl::expected<multimap, ::portable_stl::portable_stl_error> {
+      return {::portable_stl::in_place_t{}, ::portable_stl::move(ret)};
     });
   }
 

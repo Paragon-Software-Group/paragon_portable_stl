@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="map_lookup.cpp"
 // * 
@@ -204,17 +204,17 @@ TEST(map, count) {
 namespace test_map_helper {
 class compare_pair_trans final {
 public:
-  bool operator()(std::pair<std::int32_t, std::int32_t> const &lhs,
-                  std::pair<std::int32_t, std::int32_t> const &rhs) const {
+  bool operator()(::portable_stl::tuple<std::int32_t, std::int32_t> const &lhs,
+                  ::portable_stl::tuple<std::int32_t, std::int32_t> const &rhs) const {
     return lhs < rhs;
   }
 
-  bool operator()(std::pair<std::int32_t, std::int32_t> const &lhs, std::int32_t rhs) const {
-    return lhs.first < rhs;
+  bool operator()(::portable_stl::tuple<std::int32_t, std::int32_t> const &lhs, std::int32_t rhs) const {
+    return ::portable_stl::get<0>(lhs) < rhs;
   }
 
-  bool operator()(std::int32_t lhs, std::pair<std::int32_t, std::int32_t> const &rhs) const {
-    return lhs < rhs.first;
+  bool operator()(std::int32_t lhs, ::portable_stl::tuple<std::int32_t, std::int32_t> const &rhs) const {
+    return lhs < ::portable_stl::get<0>(rhs);
   }
 
   using is_transparent = void;
@@ -225,7 +225,7 @@ public:
 TEST(map, count_transparent) {
   static_cast<void>(test_info_);
 
-  ::portable_stl::map<std::pair<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
+  ::portable_stl::map<::portable_stl::tuple<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
     {{2, 1}, 1},
     {{1, 2}, 2}, // hit
     {{1, 3}, 3}, // hit
@@ -293,7 +293,7 @@ TEST(map, contains) {
 TEST(map, contains_transparent) {
   static_cast<void>(test_info_);
 
-  ::portable_stl::map<std::pair<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
+  ::portable_stl::map<::portable_stl::tuple<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
     {{2, 1}, 1},
     {{1, 2}, 2}, // hit
     {{1, 3}, 3}, // hit
@@ -434,7 +434,7 @@ TEST(map, lower_bound_transparent) {
   static_cast<void>(test_info_);
 
   {
-    ::portable_stl::map<std::pair<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
+    ::portable_stl::map<::portable_stl::tuple<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
       {{2, 1}, 1},
       {{1, 2}, 2}, // hit
       {{1, 3}, 3}, // hit
@@ -448,7 +448,7 @@ TEST(map, lower_bound_transparent) {
 
   // constant
   {
-    ::portable_stl::map<std::pair<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> const
+    ::portable_stl::map<::portable_stl::tuple<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> const
       mp({
         {{2, 1}, 1},
         {{1, 2}, 2}, // hit
@@ -593,7 +593,7 @@ TEST(map, upper_bound_transparent) {
   static_cast<void>(test_info_);
 
   {
-    ::portable_stl::map<std::pair<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
+    ::portable_stl::map<::portable_stl::tuple<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
       {{2, 1}, 1},
       {{1, 2}, 2}, // hit
       {{1, 3}, 3}, // hit
@@ -607,7 +607,7 @@ TEST(map, upper_bound_transparent) {
 
   // constant
   {
-    ::portable_stl::map<std::pair<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> const
+    ::portable_stl::map<::portable_stl::tuple<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> const
       mp({
         {{2, 1}, 1},
         {{1, 2}, 2}, // hit
@@ -786,7 +786,7 @@ TEST(map, equal_range_transparent) {
   static_cast<void>(test_info_);
 
   {
-    ::portable_stl::map<std::pair<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
+    ::portable_stl::map<::portable_stl::tuple<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> mp({
       {{2, 1}, 1},
       {{1, 2}, 2}, // hit
       {{1, 3}, 3}, // hit
@@ -798,7 +798,7 @@ TEST(map, equal_range_transparent) {
     std::size_t nels{0};
 
     for (auto it = ::portable_stl::get<0>(result); it != ::portable_stl::get<1>(result); it++) {
-      ASSERT_EQ(1, ::portable_stl::get<0>(*it).first);
+      ASSERT_EQ(1, ::portable_stl::get<0>(::portable_stl::get<0>(*it)));
       ++nels;
     }
 
@@ -806,7 +806,7 @@ TEST(map, equal_range_transparent) {
   }
 
   {
-    ::portable_stl::map<std::pair<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> const mp({
+    ::portable_stl::map<::portable_stl::tuple<std::int32_t, std::int32_t>, std::int32_t, test_map_helper::compare_pair_trans> const mp({
       {{2, 1}, 1},
       {{1, 2}, 2}, // hit
       {{1, 3}, 3}, // hit
@@ -818,7 +818,7 @@ TEST(map, equal_range_transparent) {
     std::size_t nels{0};
 
     for (auto it = ::portable_stl::get<0>(result); it != ::portable_stl::get<1>(result); it++) {
-      ASSERT_EQ(1, ::portable_stl::get<0>(*it).first);
+      ASSERT_EQ(1, ::portable_stl::get<0>(::portable_stl::get<0>(*it)));
       ++nels;
     }
 

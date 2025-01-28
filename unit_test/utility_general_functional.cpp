@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="utility_general_functional.cpp"
 // * 
@@ -71,12 +71,11 @@ TEST(reference_wrapper, reference_wrapper) {
     EXPECT_FALSE((checker()));
   }
   {
-    ::portable_stl::type_properties_helpers::is_reference_wrapper<
-      typename ::portable_stl::reference_wrapper<std::int32_t>>::type checker{};
+    ::portable_stl::is_reference_wrapper<typename ::portable_stl::reference_wrapper<std::int32_t>>::type checker{};
     EXPECT_TRUE((checker()));
   }
   {
-    ::portable_stl::type_properties_helpers::is_reference_wrapper<std::int32_t>::type checker{};
+    ::portable_stl::is_reference_wrapper<std::int32_t>::type checker{};
     EXPECT_FALSE((checker()));
   }
 }
@@ -132,20 +131,20 @@ TEST(utility_general_functional, invoke) {
     EXPECT_EQ(utility_general_functional_helper::value_ten,
               ::portable_stl::invoke(utility_general_functional_helper::int_function, 1));
   }
-  // function
-  {
-    /**
-     * @brief Helper type for check invoke.
-     *
-     */
-    using cheker = ::portable_stl::functional_helper::
-      invoke_selector_helper<decltype(&utility_general_functional_helper::int_function), decltype(1)>;
-    EXPECT_EQ(utility_general_functional_helper::value_ten,
-              (cheker::get(utility_general_functional_helper::int_function, 1)));
+  // // function
+  // {
+  //   /**
+  //    * @brief Helper type for check invoke.
+  //    *
+  //    */
+  //   using cheker = ::portable_stl::functional_helper::
+  //     invoke_selector_helper<decltype(&utility_general_functional_helper::int_function), decltype(1)>;
+  //   EXPECT_EQ(utility_general_functional_helper::value_ten,
+  //             (cheker::get(utility_general_functional_helper::int_function, 1)));
 
-    EXPECT_EQ(utility_general_functional_helper::value_ten,
-              (cheker{}.get(utility_general_functional_helper::int_function, 1)));
-  }
+  //   EXPECT_EQ(utility_general_functional_helper::value_ten,
+  //             (cheker{}.get(utility_general_functional_helper::int_function, 1)));
+  // }
   // member function
   {
     utility_general_functional_helper::invoke_checker Obj1{};

@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="utility_general_functional_invoke.h"
 // * 
@@ -46,7 +46,7 @@ namespace utility_general_functional_helper {
     /**
      * @brief Member data.
      */
-    int value_{11};
+    int m_value{11};
   };
 
   /**
@@ -73,7 +73,7 @@ inline void utility_general_functional_invoke() {
   EXPECT_EQ(10, ::portable_stl::invoke(&utility_general_functional_helper::CallableClass::func, Obj1, 1));
 
   // data member
-  EXPECT_EQ(11, ::portable_stl::invoke(&utility_general_functional_helper::CallableClass::value_, Obj1));
+  EXPECT_EQ(11, ::portable_stl::invoke(&utility_general_functional_helper::CallableClass::m_value, Obj1));
 
   // functional object
   EXPECT_EQ(10, ::portable_stl::invoke(utility_general_functional_helper::CallableClass(), 1));

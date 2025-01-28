@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector_bool.h"
 // * 
@@ -451,7 +451,7 @@ private:
         vec.M_construct_at_end(::portable_stl::move(first), ::portable_stl::move(last), num);
       } else {
         return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-          ::portable_stl::portable_stl_error::vector_allocate_error};
+          ::portable_stl::portable_stl_error::allocate_error};
       }
     }
     return ::portable_stl::expected<void, ::portable_stl::portable_stl_error>();
@@ -619,7 +619,7 @@ template<class t_allocator>
       vec.M_construct_at_end(num, false);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<vector, ::portable_stl::portable_stl_error>(::portable_stl::move(vec));
@@ -654,7 +654,7 @@ template<class t_allocator>
       vec.M_construct_at_end(num, false);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<vector, ::portable_stl::portable_stl_error>(::portable_stl::move(vec));
@@ -688,7 +688,7 @@ template<class t_allocator>
       vec.M_construct_at_end(num, value);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<vector, ::portable_stl::portable_stl_error>(::portable_stl::move(vec));
@@ -723,7 +723,7 @@ template<class t_allocator>
       vec.M_construct_at_end(num, value);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<vector, ::portable_stl::portable_stl_error>(::portable_stl::move(vec));
@@ -734,7 +734,7 @@ template<class t_input_iterator, vector_helper::enable_for_input_iter_bool<t_inp
 vector<bool, t_allocator>::vector(t_input_iterator first, t_input_iterator last) : m_begin(nullptr), m_size(0U) {
   auto result = M_init_with_sentinel(first, last);
   if (!result) {
-    if (::portable_stl::portable_stl_error::vector_allocate_error == result.error()) {
+    if (::portable_stl::portable_stl_error::allocate_error == result.error()) {
       throw ::portable_stl::bad_alloc<>{};
     } else {
       throw ::portable_stl::length_error<>{};
@@ -759,7 +759,7 @@ vector<bool, t_allocator>::vector(t_input_iterator first, t_input_iterator last,
     : m_begin(nullptr), m_size(0U), m_cap_alloc(0U, static_cast<t_storage_allocator>(alloc)) {
   auto result = M_init_with_sentinel(first, last);
   if (!result) {
-    if (::portable_stl::portable_stl_error::vector_allocate_error == result.error()) {
+    if (::portable_stl::portable_stl_error::allocate_error == result.error()) {
       throw ::portable_stl::bad_alloc<>{};
     } else {
       throw ::portable_stl::length_error<>{};
@@ -862,7 +862,7 @@ template<class t_allocator>
       vec.M_construct_at_end(init_list.begin(), init_list.end(), num);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<vector, ::portable_stl::portable_stl_error>(::portable_stl::move(vec));
@@ -899,7 +899,7 @@ template<class t_allocator>
       vec.M_construct_at_end(init_list.begin(), init_list.end(), num);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<vector, ::portable_stl::portable_stl_error>(::portable_stl::move(vec));
@@ -934,7 +934,7 @@ template<class t_allocator>
       vec.M_construct_at_end(other.begin(), other.end(), num);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<vector, ::portable_stl::portable_stl_error>(::portable_stl::move(vec));
@@ -967,7 +967,7 @@ template<class t_allocator>
       vec.M_construct_at_end(other.begin(), other.end(), num);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<vector, ::portable_stl::portable_stl_error>(::portable_stl::move(vec));
@@ -1096,7 +1096,7 @@ template<class t_forward_iterator, vector_helper::enable_for_forward_iter_bool<t
   }
   if (!M_assign_with_size(first, last, new_size)) {
     return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-      ::portable_stl::portable_stl_error::vector_allocate_error};
+      ::portable_stl::portable_stl_error::allocate_error};
   }
   return ::portable_stl::expected<void, ::portable_stl::portable_stl_error>();
 }
@@ -1134,7 +1134,7 @@ template<class t_allocator>
       swap(tmp_vec);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<void, ::portable_stl::portable_stl_error>();

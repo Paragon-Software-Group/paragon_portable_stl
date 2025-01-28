@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="forward_list.h"
 // * 
@@ -43,7 +43,6 @@
 #else
 #  include "../language_support/no_exception/throw_on_true.h"
 #endif
-
 
 namespace portable_stl {
 
@@ -233,11 +232,9 @@ public:
   static ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error> make_forward_list(
     size_type num, value_type const &value, allocator_type const &alloc) {
     forward_list lst(alloc);
-    auto         result = lst.insert_after(lst.cbefore_begin(), num, value);
-    if (!result) {
-      return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-    }
-    return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+    return lst.insert_after(lst.cbefore_begin(), num, value).transform([&lst](iterator /*iter*/) {
+      return ::portable_stl::move(lst);
+    });
   }
 
   /**
@@ -778,7 +775,7 @@ public:
   }
 
   /**
-   * @brief Resizes the container to contain num elements, does nothing if num == std::distance(begin(), end())
+   * @brief Resizes the container to contain num elements, does nothing if num == ::distance(begin(), end())
    * (i.e. if num is equal to the current size).
    * If the current size is greater than num, the container is reduced to its first num elements.
    * If the current size is less than num, then additional default-inserted elements are appended.
@@ -790,7 +787,7 @@ public:
   bool resize(size_type num);
 
   /**
-   * @brief Resizes the container to contain num elements, does nothing if num == std::distance(begin(), end())
+   * @brief Resizes the container to contain num elements, does nothing if num == ::distance(begin(), end())
    * (i.e. if num is equal to the current size).
    * If the current size is greater than num, the container is reduced to its first num elements.
    * If the current size is less than num, then additional copies of value are appended.
@@ -1018,8 +1015,7 @@ private:
   template<class t_compare>
   static t_node_pointer merge_impl(t_node_pointer first1, t_node_pointer first2, t_compare &comp);
 
-  template<class t_compare>
-  static t_node_pointer sort_impl(t_node_pointer first, difference_type __sz, t_compare &comp);
+  template<class t_compare> static t_node_pointer sort_impl(t_node_pointer first, size_type list_size, t_compare &comp);
 };
 
 // [constructors]
@@ -1064,11 +1060,9 @@ template<class t_type, class t_allocator>
 ::portable_stl::expected<forward_list<t_type, t_allocator>, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::make_forward_list(size_type num, value_type const &value) {
   forward_list lst;
-  auto         result = lst.insert_after(lst.cbefore_begin(), num, value);
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), num, value).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 /**
@@ -1102,11 +1096,9 @@ template<class t_type, class t_allocator>
 ::portable_stl::expected<forward_list<t_type, t_allocator>, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::make_forward_list(size_type num) {
   forward_list lst;
-  auto         result = lst.insert_after(lst.cbefore_begin(), num, value_type());
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), num, value_type()).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 /**
@@ -1145,11 +1137,9 @@ template<class t_type, class t_allocator>
 ::portable_stl::expected<forward_list<t_type, t_allocator>, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::make_forward_list(size_type num, allocator_type const &alloc) {
   forward_list lst(alloc);
-  auto         result = lst.insert_after(lst.cbefore_begin(), num, value_type());
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), num, value_type()).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 /**
@@ -1192,11 +1182,9 @@ template<
 ::portable_stl::expected<forward_list<t_type, t_allocator>, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::make_forward_list(t_input_iterator first, t_input_iterator last) {
   forward_list lst;
-  auto         result = lst.insert_after(lst.cbefore_begin(), first, last);
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), first, last).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 /**
@@ -1244,11 +1232,9 @@ template<
   forward_list<t_type, t_allocator>::make_forward_list(
     t_input_iterator first, t_input_iterator last, allocator_type const &alloc) {
   forward_list lst(alloc);
-  auto         result = lst.insert_after(lst.cbefore_begin(), first, last);
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), first, last).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 /**
@@ -1262,7 +1248,8 @@ template<
 template<class t_type, class t_allocator>
 forward_list<t_type, t_allocator>::forward_list(forward_list const &other)
     : base(t_node_alloc_traits::select_on_container_copy_construction(other.node_alloc())) {
-  ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert_after(cbefore_begin(), other.begin(), other.end()));
+  ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(
+    !insert_after(cbefore_begin(), other.begin(), other.end()));
 }
 
 /**
@@ -1278,11 +1265,9 @@ template<class t_type, class t_allocator>
 ::portable_stl::expected<forward_list<t_type, t_allocator>, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::make_forward_list(forward_list const &other) {
   forward_list lst(t_node_alloc_traits::select_on_container_copy_construction(other.node_alloc()));
-  auto         result = lst.insert_after(lst.cbefore_begin(), other.begin(), other.end());
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), other.begin(), other.end()).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 /**
@@ -1298,7 +1283,8 @@ template<class t_type, class t_allocator>
 forward_list<t_type, t_allocator>::forward_list(forward_list const                                    &other,
                                                 ::portable_stl::type_identity_t<allocator_type> const &alloc)
     : base(alloc) {
-  ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert_after(cbefore_begin(), other.begin(), other.end()));
+  ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(
+    !insert_after(cbefore_begin(), other.begin(), other.end()));
 }
 
 /**
@@ -1316,11 +1302,9 @@ template<class t_type, class t_allocator>
   forward_list<t_type, t_allocator>::make_forward_list(forward_list const                                    &other,
                                                        ::portable_stl::type_identity_t<allocator_type> const &alloc) {
   forward_list lst(alloc);
-  auto         result = lst.insert_after(lst.cbefore_begin(), other.begin(), other.end());
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), other.begin(), other.end()).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 /**
@@ -1371,11 +1355,9 @@ template<class t_type, class t_allocator>
 ::portable_stl::expected<forward_list<t_type, t_allocator>, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::make_forward_list(std::initializer_list<value_type> init_list) {
   forward_list lst;
-  auto         result = lst.insert_after(lst.cbefore_begin(), init_list.begin(), init_list.end());
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), init_list.begin(), init_list.end()).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 /**
@@ -1410,11 +1392,9 @@ template<class t_type, class t_allocator>
   forward_list<t_type, t_allocator>::make_forward_list(std::initializer_list<value_type> init_list,
                                                        allocator_type const             &alloc) {
   forward_list lst(alloc);
-  auto         result = lst.insert_after(lst.cbefore_begin(), init_list.begin(), init_list.end());
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  return ::portable_stl::expected<forward_list, ::portable_stl::portable_stl_error>(::portable_stl::move(lst));
+  return lst.insert_after(lst.cbefore_begin(), init_list.begin(), init_list.end()).transform([&lst](iterator /*iter*/) {
+    return ::portable_stl::move(lst);
+  });
 }
 
 // [assign]
@@ -1470,8 +1450,12 @@ template<class t_iterator, class t_sentinel>
   iterator       iter{before_begin()};
   iterator       iter_next{::portable_stl::next(iter)};
   iterator const iter_end{end()};
-  for (; iter_next != iter_end && first != last; ++iter, (void)++iter_next, ++first) {
+
+  while ((iter_next != iter_end) && (first != last)) {
     *iter_next = *first;
+    ++iter;
+    ++iter_next;
+    ++first;
   }
   if (iter_end == iter_next) {
     auto result = insert_after_with_sentinel(iter, ::portable_stl::move(first), ::portable_stl::move(last));
@@ -1610,7 +1594,7 @@ template<class... t_args>
 ::portable_stl::expected<typename forward_list<t_type, t_allocator>::reference_wrap, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::emplace_front(t_args &&...args) {
   return this->create_node(/* next = */ base::get_before_begin()->m_next, ::portable_stl::forward<t_args>(args)...)
-    .transform([this](t_node_pointer const &tmp_node_pointer) -> reference_wrap {
+    .transform([this](t_node_pointer const &tmp_node_pointer) {
       base::get_before_begin()->m_next = tmp_node_pointer;
       return ::portable_stl::ref<value_type>(base::get_before_begin()->m_next->get_value());
     });
@@ -1628,13 +1612,13 @@ template<class... t_args>
 template<class t_type, class t_allocator>
 ::portable_stl::expected<void, ::portable_stl::portable_stl_error> forward_list<t_type, t_allocator>::push_front(
   value_type const &value) {
-  auto result = this->create_node(/* next = */ base::get_before_begin()->m_next, value);
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  base::get_before_begin()->m_next = ::portable_stl::move(result.value());
-
-  return ::portable_stl::expected<void, ::portable_stl::portable_stl_error>();
+  return this->create_node(/* next = */ base::get_before_begin()->m_next, value)
+    .and_then(
+      [this](t_node_pointer tmp_node_pointer) -> ::portable_stl::expected<void, portable_stl::portable_stl_error> {
+        base::get_before_begin()->m_next = tmp_node_pointer;
+        return {};
+      })
+    .transform_void();
 }
 
 /**
@@ -1649,13 +1633,14 @@ template<class t_type, class t_allocator>
 template<class t_type, class t_allocator>
 ::portable_stl::expected<void, ::portable_stl::portable_stl_error> forward_list<t_type, t_allocator>::push_front(
   value_type &&value) {
-  auto result = this->create_node(/* next = */ base::get_before_begin()->m_next, ::portable_stl::move(value));
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  base::get_before_begin()->m_next = ::portable_stl::move(result.value());
-
-  return ::portable_stl::expected<void, ::portable_stl::portable_stl_error>();
+  return this->create_node(/* next = */ base::get_before_begin()->m_next, ::portable_stl::move(value))
+    .and_then(
+      [this](
+        t_node_pointer const &tmp_node_pointer) -> ::portable_stl::expected<void, portable_stl::portable_stl_error> {
+        base::get_before_begin()->m_next = tmp_node_pointer;
+        return {};
+      })
+    .transform_void();
 }
 
 /**
@@ -1690,7 +1675,7 @@ template<class... t_args>
   forward_list<t_type, t_allocator>::emplace_after(const_iterator pos, t_args &&...args) {
   t_begin_node_pointer const ptr = pos.get_begin();
   return this->create_node(/* next = */ ptr->m_next, ::portable_stl::forward<t_args>(args)...)
-    .transform([this, &ptr](t_node_pointer const &tmp_node_pointer) -> iterator {
+    .transform([&ptr](t_node_pointer const &tmp_node_pointer) {
       ptr->m_next = tmp_node_pointer;
       return iterator(ptr->m_next);
     });
@@ -1710,13 +1695,11 @@ template<class... t_args>
 template<class t_type, class t_allocator>
 ::portable_stl::expected<typename forward_list<t_type, t_allocator>::iterator, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::insert_after(const_iterator pos, value_type const &value) {
-  t_begin_node_pointer const ret    = pos.get_begin();
-  auto                       result = this->create_node(/* next = */ ret->m_next, value);
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  ret->m_next = result.value();
-  return ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error>(iterator(ret->m_next));
+  t_begin_node_pointer const ptr = pos.get_begin();
+  return this->create_node(/* next = */ ptr->m_next, value).transform([&ptr](t_node_pointer const &tmp_node_pointer) {
+    ptr->m_next = tmp_node_pointer;
+    return iterator(ptr->m_next);
+  });
 }
 
 /**
@@ -1733,13 +1716,12 @@ template<class t_type, class t_allocator>
 template<class t_type, class t_allocator>
 ::portable_stl::expected<typename forward_list<t_type, t_allocator>::iterator, ::portable_stl::portable_stl_error>
   forward_list<t_type, t_allocator>::insert_after(const_iterator pos, value_type &&value) {
-  t_begin_node_pointer const ret    = pos.get_begin();
-  auto                       result = this->create_node(/* next = */ ret->m_next, ::portable_stl::move(value));
-  if (!result) {
-    return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-  }
-  ret->m_next = ::portable_stl::move(result.value());
-  return ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error>(iterator(ret->m_next));
+  t_begin_node_pointer const ptr = pos.get_begin();
+  return this->create_node(/* next = */ ptr->m_next, ::portable_stl::move(value))
+    .transform([&ptr](t_node_pointer const &tmp_node_pointer) {
+      ptr->m_next = tmp_node_pointer;
+      return iterator(ptr->m_next);
+    });
 }
 
 /**
@@ -1764,6 +1746,7 @@ template<class t_type, class t_allocator>
     if (!result) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
     }
+    --num;
 
     t_node_pointer first_inserted = portable_stl::move(result.value());
     t_node_pointer last_inserted  = first_inserted;
@@ -1776,12 +1759,13 @@ template<class t_type, class t_allocator>
       }
     });
 
-    for (--num; num != 0; --num, last_inserted = last_inserted->m_next) {
+    for (; num > 0; --num) {
       result = this->create_node(/* next = */ nullptr, value);
       if (!result) {
         return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
       }
       last_inserted->m_next = ::portable_stl::move(result.value());
+      last_inserted         = last_inserted->m_next;
     }
 
     guard.commit();
@@ -1821,21 +1805,23 @@ template<class t_input_iterator, class t_sentinel>
     }
     t_node_pointer first_inserted = portable_stl::move(result.value());
     t_node_pointer last_inserted  = first_inserted;
+    ++first;
 
     auto guard = ::portable_stl::make_exception_guard([this, &first_inserted]() {
       while (first_inserted != nullptr) {
-        t_node_pointer next = first_inserted->m_next;
+        t_node_pointer next{first_inserted->m_next};
         this->delete_node(first_inserted);
         first_inserted = next;
       }
     });
 
-    for (++first; first != last; ++first, ((void)(last_inserted = last_inserted->m_next))) {
+    for (; first != last; ++first) {
       result = this->create_node(/* next = */ nullptr, *first);
       if (!result) {
         return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
       }
       last_inserted->m_next = ::portable_stl::move(result.value());
+      last_inserted         = last_inserted->m_next;
     }
 
     guard.commit();
@@ -1945,12 +1931,15 @@ template<class t_type, class t_allocator> bool forward_list<t_type, t_allocator>
     num -= count;
     // add num lacking items
     if (num > 0) {
-      for (t_begin_node_pointer ptr{iter_prev.get_begin()}; num > 0; --num, ptr = ptr->next_as_begin()) {
+      t_begin_node_pointer ptr{iter_prev.get_begin()};
+      while (num > 0) {
         auto result = this->create_node(/* next = */ nullptr);
         if (!result) {
           return false;
         }
         ptr->m_next = ::portable_stl::move(result.value());
+        ptr         = ptr->next_as_begin();
+        --num;
       }
     }
   }
@@ -2086,12 +2075,12 @@ template<class t_type, class t_allocator>
 void forward_list<t_type, t_allocator>::splice_after(
   const_iterator pos, forward_list & /*other_list*/, const_iterator first, const_iterator last) {
   if (first != last && pos != first) {
-    const_iterator __lm1 = first;
-    while (__lm1.get_begin()->m_next != last.get_begin()) {
-      ++__lm1;
+    const_iterator lm1 = first;
+    while (lm1.get_begin()->m_next != last.get_begin()) {
+      ++lm1;
     }
-    if (first != __lm1) {
-      __lm1.get_begin()->m_next = pos.get_begin()->m_next;
+    if (first != lm1) {
+      lm1.get_begin()->m_next   = pos.get_begin()->m_next;
       pos.get_begin()->m_next   = first.get_begin()->m_next;
       first.get_begin()->m_next = last.get_unsafe_node_pointer();
     }
@@ -2147,7 +2136,7 @@ typename forward_list<t_type, t_allocator>::remove_return_type forward_list<t_ty
     }
   }
 
-  return (remove_return_type)count_removed;
+  return static_cast<remove_return_type>(count_removed);
 }
 
 /**
@@ -2242,7 +2231,7 @@ typename forward_list<t_type, t_allocator>::t_node_pointer forward_list<t_type, 
   t_node_pointer ret;
   if (comp(first2->get_value(), first1->get_value())) {
     t_node_pointer tmp{first2};
-    while (tmp->m_next != nullptr && comp(tmp->m_next->get_value(), first1->get_value())) {
+    while ((tmp->m_next != nullptr) && comp(tmp->m_next->get_value(), first1->get_value())) {
       tmp = tmp->m_next;
     }
     ret         = first2;
@@ -2304,8 +2293,8 @@ void forward_list<t_type, t_allocator>::merge(forward_list &other_list, t_compar
 template<class t_type, class t_allocator>
 template<class t_compare>
 inline void forward_list<t_type, t_allocator>::sort(t_compare comp) {
-  base::get_before_begin()->m_next
-    = sort_impl(base::get_before_begin()->m_next, ::portable_stl::distance(begin(), end()), comp);
+  base::get_before_begin()->m_next = sort_impl(
+    base::get_before_begin()->m_next, static_cast<size_type>(::portable_stl::distance(begin(), end())), comp);
 }
 
 /**
@@ -2323,26 +2312,29 @@ inline void forward_list<t_type, t_allocator>::sort(t_compare comp) {
 template<class t_type, class t_allocator>
 template<class t_compare>
 typename forward_list<t_type, t_allocator>::t_node_pointer forward_list<t_type, t_allocator>::sort_impl(
-  t_node_pointer first1, difference_type list_size, t_compare &comp) {
+  t_node_pointer first, size_type list_size, t_compare &comp) {
   switch (list_size) {
     case 0:
     case 1:
-      return first1;
+      return first;
     case 2:
-      if (comp(first1->m_next->get_value(), first1->get_value())) {
-        t_node_pointer tmp{first1->m_next};
-        tmp->m_next    = first1;
-        first1->m_next = nullptr;
-        first1         = tmp;
+      if (comp(first->m_next->get_value(), first->get_value())) {
+        // swap first and second nodes
+        t_node_pointer tmp{first->m_next};
+        tmp->m_next   = first;
+        first->m_next = nullptr;
+        first         = tmp;
       }
-      return first1;
+      return first;
+    default:
+      size_type const size_left{list_size / 2};                                    // >= 1
+      size_type const size_right{list_size - size_left};                           // >= 0
+      auto const      left_end_dist = static_cast<difference_type>(size_left - 1); // >= 0
+      t_node_pointer  tmp2{::portable_stl::next(iterator(first), left_end_dist).get_unsafe_node_pointer()};
+      t_node_pointer  first2{tmp2->m_next};
+      tmp2->m_next = nullptr;
+      return merge_impl(sort_impl(first, size_left, comp), sort_impl(first2, size_right, comp), comp);
   }
-  difference_type size_left  = list_size / 2;
-  difference_type size_right = list_size - size_left;
-  t_node_pointer  tmp2       = ::portable_stl::next(iterator(first1), size_left - 1).get_unsafe_node_pointer();
-  t_node_pointer  first2     = tmp2->m_next;
-  tmp2->m_next               = nullptr;
-  return merge_impl(sort_impl(first1, size_left, comp), sort_impl(first2, size_right, comp), comp);
 }
 
 /**

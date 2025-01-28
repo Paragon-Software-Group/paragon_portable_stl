@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector_constructor.cpp"
 // * 
@@ -179,7 +179,7 @@ TEST(vector, make_vector_size) {
 
     auto result = ::portable_stl::vector<std::int32_t, TestAllocator>::make_vector(3);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // bad construction - no error, exception only
@@ -327,7 +327,7 @@ TEST(vector, make_vector_size_alloc) {
 
     auto result = ::portable_stl::vector<std::int32_t, TestAlloc<std::int32_t>>::make_vector(3, alloc1);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // bad construction - no error, exception only
@@ -461,7 +461,7 @@ TEST(vector, make_vector_size_value) {
 
     auto result = ::portable_stl::vector<std::int32_t, TestAllocator>::make_vector(3, 3);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // bad construction - no error, exception only
@@ -618,7 +618,7 @@ TEST(vector, make_vector_size_value_alloc) {
 
     auto result = ::portable_stl::vector<std::int32_t, TestAlloc<std::int32_t>>::make_vector(10, 3, alloc1);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   test_vector_helper::ThrowSometime::setThrowOnConstruction(100);
@@ -683,8 +683,8 @@ TEST(vector, constructor_iter_iter) {
 
   // Make sure initialization is performed with each element value, not with a memory blob.
   {
-    float                                array[3] = {0.01f, 1.01f, 2.01f};
-    ::portable_stl::vector<std::int32_t> vec(array, array + 3);
+    std::int16_t                         array[3] = {0, 1, 2};
+    ::portable_stl::vector<std::int64_t> vec(array, array + 3);
     EXPECT_EQ(0, vec[0]);
     EXPECT_EQ(1, vec[1]);
     EXPECT_EQ(2, vec[2]);
@@ -694,6 +694,7 @@ TEST(vector, constructor_iter_iter) {
   {
     std::uint16_t                         array[1] = {65535};
     ::portable_stl::vector<std::uint32_t> v(array, array + 1);
+    EXPECT_EQ(1, v.size());
     EXPECT_EQ(65535, v[0]);
   }
 
@@ -803,6 +804,29 @@ TEST(vector, constructor_iter_iter) {
     // allocator.construct/destroy used to construct vector<T>.
     EXPECT_EQ(3, TestAllocator::m_construct_count);
     EXPECT_EQ(3, TestAllocator::m_destroy_count);
+  }
+
+  // no bad allocation tst_input_iterator
+  {
+    /**
+     * @brief Test type with trivial ctors.
+     */
+    using T             = test_vector_helper::ThrowSometime;
+    /**
+     * @brief Test allocator with no limits.
+     */
+    using TestAllocator = test_allocator_helper::TestSimpleAllocator<test_vector_helper::ThrowSometime>;
+    TestAllocator::resetStat();
+    T::setThrowOnConstruction(100);
+
+    std::int32_t  a[] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+    std::int32_t *an  = a + sizeof(a) / sizeof(a[0]);
+
+    ::portable_stl::vector<test_vector_helper::ThrowSometime, TestAllocator> vec{
+      test_iterator_helper::tst_input_iterator<std::int32_t const *>(a),
+      test_iterator_helper::tst_input_iterator<std::int32_t const *>(an)};
+
+    ASSERT_EQ(9, vec.size());
   }
 
   // no bad allocation (zero size) tst_input_iterator
@@ -926,7 +950,7 @@ TEST(vector, make_vector_iter_iter) {
       test_iterator_helper::tst_input_iterator<std::int32_t const *>(an));
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // bad allocation forward_iterator
@@ -939,7 +963,7 @@ TEST(vector, make_vector_iter_iter) {
       test_iterator_helper::tst_forward_iterator<std::int32_t const *>(an));
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // bad construction input_iterator USE construct/destroy
@@ -1362,6 +1386,15 @@ TEST(vector, constructor_copy_alloc) {
 
 TEST(vector, constructor_move) {
   static_cast<void>(test_info_);
+
+  // invoke operator== ( MoveOnly &, MoveOnly & )
+  {
+    test_common_helper::MoveOnly a(2);
+    test_common_helper::MoveOnly ref(1);
+    test_common_helper::MoveOnly b(1);
+    a = std::move(b);
+    ASSERT_TRUE(ref == a);
+  }
 
   test_allocator_helper::test_allocator_statistics stat{};
   {

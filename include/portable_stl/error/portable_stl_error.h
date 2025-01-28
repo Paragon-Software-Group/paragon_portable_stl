@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="portable_stl_error.h"
 // * 
@@ -20,34 +20,27 @@ namespace portable_stl {
 enum class portable_stl_error {
   /**
    * @brief Catch exception in delete object proccess.
+   *
    */
   delete_error,
   /**
    * @brief It reports errors that are consequence of attempt to access elements out of defined range.
+   *
    */
   out_of_range,
   /**
    * @brief Reports failure to allocate to big storage.
+   *
    */
   length_error,
   /**
    * @brief Can't allocate memory.
+   *
    */
   allocate_error,
   /**
-   * @brief Can't allocate memory for string.
-   */
-  string_allocate_error,
-  /**
-   * @brief Can't allocate memory for vector.
-   */
-  vector_allocate_error,
-  /**
-   * @brief Can't allocate memory for node.
-   */
-  node_allocate_error,
-  /**
    * @brief Can't construct object.
+   *
    */
   construct_error,
   /**

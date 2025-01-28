@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="set_insert.cpp"
 // * 
@@ -86,7 +86,7 @@ TEST(set, insert_value_type) {
     auto               result = st.insert(value);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Strong guarantee
     ASSERT_EQ(3, st.size());
@@ -217,7 +217,7 @@ TEST(set, insert_pos_value_type) {
     auto               result = st.insert(st.end(), value);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Strong guarantee
     ASSERT_EQ(3, st.size());
@@ -306,7 +306,7 @@ TEST(set, insert_iter_iter) {
                             test_iterator_helper::tst_input_iterator<std::int32_t *>(ar + sizeof(ar) / sizeof(ar[0])));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     EXPECT_EQ(4, st.size()); // only two successful insertion
   }
@@ -468,7 +468,7 @@ TEST(set, emplace) {
     auto result = st.emplace();
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // Emplaceable
@@ -573,7 +573,7 @@ TEST(set, emplace_hint) {
     auto result = st.emplace_hint(st.cbegin());
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
 //   // Emplaceable

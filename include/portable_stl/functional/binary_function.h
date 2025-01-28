@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="binary_function.h"
 // * 
@@ -15,13 +15,14 @@
 namespace portable_stl {
 
 /**
- * @brief Removed in C++17, but still used in map.
+ * @brief Removed in C++17, but still used in map and function.
  *
  * @tparam t_arg1
  * @tparam t_arg2
  * @tparam t_result
  */
-template<class t_arg1, class t_arg2, class t_result> struct binary_function_depr {
+template<class t_arg1, class t_arg2, class t_result> class binary_function_depr {
+  public:
   using first_argument_type  = t_arg1;
   using second_argument_type = t_arg2;
   using result_type          = t_result;

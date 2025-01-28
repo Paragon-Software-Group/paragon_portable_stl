@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="basic_string_insert.cpp"
 // * 
@@ -265,21 +265,21 @@ TEST(basic_string, insert_index_count_char) {
     TString s;
 
     test_string_insert_helper::insert_index_char_count(
-      s, 0, test_string_helper::chars_in_SSO + 1, 'a', true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, test_string_helper::chars_in_SSO + 1, 'a', true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(test_string_helper::chars_in_SSO - 2, 'a');
 
     test_string_insert_helper::insert_index_char_count(
-      s, 0, 3, 'b', true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, 3, 'b', true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(30, 'a');
 
     test_string_insert_helper::insert_index_char_count(
-      s, 0, 3, 'b', true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, 3, 'b', true, ::portable_stl::portable_stl_error::allocate_error);
   }
 
   // no new allocation
@@ -390,21 +390,21 @@ TEST(basic_string, insert_index_string_view) {
     TString s;
 
     test_string_insert_helper::insert_index_string_view(
-      s, 0, TStringView("aaaaaaaaaaaaaaaaaaaaaaa"), true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TStringView("aaaaaaaaaaaaaaaaaaaaaaa"), true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(test_string_helper::chars_in_SSO - 2, 'a');
 
     test_string_insert_helper::insert_index_string_view(
-      s, 0, TStringView("bbb"), true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TStringView("bbb"), true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(30, 'a');
 
     test_string_insert_helper::insert_index_string_view(
-      s, 0, TStringView("bbb"), true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TStringView("bbb"), true, ::portable_stl::portable_stl_error::allocate_error);
   }
 
   // no new allocation
@@ -508,21 +508,21 @@ TEST(basic_string, insert_index_cstring) {
     TString s;
 
     test_string_insert_helper::insert_index_cstring(
-      s, 0, "aaaaaaaaaaaaaaaaaaaaaaa", true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, "aaaaaaaaaaaaaaaaaaaaaaa", true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(test_string_helper::chars_in_SSO - 2, 'a');
 
     test_string_insert_helper::insert_index_cstring(
-      s, 0, "bbb", true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, "bbb", true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(30, 'a');
 
     test_string_insert_helper::insert_index_cstring(
-      s, 0, "bbb", true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, "bbb", true, ::portable_stl::portable_stl_error::allocate_error);
   }
 
   // no new allocation
@@ -641,21 +641,21 @@ TEST(basic_string, insert_index_cstring_count) {
                                                           "aaaaaaaaaaaaaaaaaaaaaaa",
                                                           test_string_helper::chars_in_SSO + 1,
                                                           true,
-                                                          ::portable_stl::portable_stl_error::string_allocate_error);
+                                                          ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(test_string_helper::chars_in_SSO - 2, 'a');
 
     test_string_insert_helper::insert_index_cstring_count(
-      s, 0, "bbbaaa", 3, true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, "bbbaaa", 3, true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(30, 'a');
 
     test_string_insert_helper::insert_index_cstring_count(
-      s, 0, "bbb", 3, true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, "bbb", 3, true, ::portable_stl::portable_stl_error::allocate_error);
   }
 
   // no new allocation
@@ -761,21 +761,21 @@ TEST(basic_string, insert_index_string) {
     TString s;
 
     test_string_insert_helper::insert_index_string(
-      s, 0, TString("aaaaaaaaaaaaaaaaaaaaaaa"), true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TString("aaaaaaaaaaaaaaaaaaaaaaa"), true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(test_string_helper::chars_in_SSO - 2, 'a');
 
     test_string_insert_helper::insert_index_string(
-      s, 0, TString("bbb"), true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TString("bbb"), true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(30, 'a');
 
     test_string_insert_helper::insert_index_string(
-      s, 0, TString("bbb"), true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TString("bbb"), true, ::portable_stl::portable_stl_error::allocate_error);
   }
 
   // no new allocation
@@ -896,21 +896,21 @@ TEST(basic_string, insert_index_string_index_count) {
     TString s;
 
     test_string_insert_helper::insert_index_string_index_count(
-      s, 0, TString("aaaaaaaaaaaaaaaaaaaaaaa"), 0, 50, true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TString("aaaaaaaaaaaaaaaaaaaaaaa"), 0, 50, true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(test_string_helper::chars_in_SSO - 2, 'a');
 
     test_string_insert_helper::insert_index_string_index_count(
-      s, 0, TString("bbb"), 0, 50, true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TString("bbb"), 0, 50, true, ::portable_stl::portable_stl_error::allocate_error);
   }
   {
     TMManager::m_counter_ok_allocation = 100;
     TString s(30, 'a');
 
     test_string_insert_helper::insert_index_string_index_count(
-      s, 0, TString("bbb"), 0, 50, true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, 0, TString("bbb"), 0, 50, true, ::portable_stl::portable_stl_error::allocate_error);
   }
 
   // no new allocation

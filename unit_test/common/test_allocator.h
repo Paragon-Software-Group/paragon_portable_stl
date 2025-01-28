@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="test_allocator.h"
 // * 
@@ -9,8 +9,8 @@
 // * 
 // * SPDX-License-Identifier: MIT
 // ***************************************************************************
-#ifndef TEST_ALLOCATOR_H
-#define TEST_ALLOCATOR_H
+#ifndef PSTL_TEST_ALLOCATOR_H
+#define PSTL_TEST_ALLOCATOR_H
 
 #include <gtest/gtest.h>
 
@@ -72,9 +72,11 @@ public:
       throw static_cast<std::int32_t>(-1);
     }
     --m_counter_ok_allocation;
-    auto *ptr = static_cast<value_type *>(::malloc(n * sizeof(value_type)));
+
+    void *ptr = ::malloc(n * sizeof(value_type));
     ::memset(ptr, '?', n * sizeof(value_type));
-    return ptr;
+
+    return static_cast<value_type *>(ptr);
   }
 
   void deallocate(value_type *p, size_type /*n*/) const {
@@ -285,7 +287,7 @@ public:
     }
     p->~t_type();
   }
-  
+
   friend bool operator==(test_allocator const &x, test_allocator const &y) {
     return x.m_data == y.m_data;
   }
@@ -390,4 +392,4 @@ template<class T> using NonPOCCAAllocator = MaybePOCCAAllocator<T, /*POCCAValue 
 
 } // namespace test_allocator_helper
 
-#endif // TEST_ALLOCATOR_H
+#endif // PSTL_TEST_ALLOCATOR_H

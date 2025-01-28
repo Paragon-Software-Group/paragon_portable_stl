@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="map_modify.cpp"
 // * 
@@ -613,7 +613,7 @@ TEST(map, insert_or_assign_lvalue_key) {
     auto result = mp.insert_or_assign(key_val, t_move_only(1, 2));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -785,7 +785,7 @@ TEST(map, insert_or_assign_pos_lvalue_key) {
     auto result = mp.insert_or_assign(mp.begin(), key_val, t_move_only(1, 2));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -927,7 +927,7 @@ TEST(map, insert_or_assign_pos_rvalue_key) {
     auto result = mp.insert_or_assign(mp.begin(), 1, t_move_only(1, 2));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 

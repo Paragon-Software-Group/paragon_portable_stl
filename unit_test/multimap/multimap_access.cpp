@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="multimap_access.cpp"
 // * 
@@ -28,9 +28,9 @@ static t_map_value_type arr[] = {t_map_value_type(1, 1.5),
                                  t_map_value_type(7, 7.5),
                                  t_map_value_type(8, 8.5)};
 
-static size_t const arr_size = sizeof(arr) / sizeof(arr[0]);
+// static size_t const arr_size = sizeof(arr) / sizeof(arr[0]);
+// static t_map_value_type *const arr_end = &arr[arr_size];
 
-static t_map_value_type *const arr_end = &arr[arr_size];
 } // namespace test_map_helper
 
 TEST(multimap, empty) {

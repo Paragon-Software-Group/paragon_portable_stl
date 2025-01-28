@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="invoke.h"
 // * 
@@ -12,28 +12,21 @@
 #ifndef PSTL_INVOKE_H
 #define PSTL_INVOKE_H
 
-#include "requirements/invoke_selector.h"
+#include "../../../utility/general/forward.h"
+#include "invoke_impl.h"
+#include "../../../metaprogramming/other_transformations/invoke_result.h"
 
 namespace portable_stl {
 
-/**
- * @brief Get result from object, if is function, then call function, if is value, return value.
- *
- * @tparam t_callable_type the type of callable object.
- * @tparam t_arguments the types of arguments.
- * @param callable_object the object for get result(function or member value).
- * @param arguments the arguments for call callable_object if is function.
- * @return getted result.
- */
-template<class t_callable_type, class... t_arguments>
-constexpr inline static auto invoke(t_callable_type &&callable_object, t_arguments &&...arguments) noexcept(
-  noexcept(::portable_stl::functional_helper::invoke_selector_helper<t_callable_type, t_arguments...>::get(
-    ::portable_stl::forward<t_callable_type>(callable_object), ::portable_stl::forward<t_arguments>(arguments)...)))
-  -> decltype(::portable_stl::functional_helper::invoke_selector_helper<t_callable_type, t_arguments...>::get(
-    ::portable_stl::forward<t_callable_type>(callable_object), ::portable_stl::forward<t_arguments>(arguments)...)) {
-  return ::portable_stl::functional_helper::invoke_selector_helper<t_callable_type, t_arguments...>::get(
-    ::portable_stl::forward<t_callable_type>(callable_object), ::portable_stl::forward<t_arguments>(arguments)...);
+template<class t_fn_type, class... t_args>
+::portable_stl::invoke_result_t<t_fn_type, t_args...> invoke(t_fn_type &&fn, t_args &&...args) noexcept(
+  noexcept(::portable_stl::functional_helper::invoke_impl(
+    ::portable_stl::forward<t_fn_type>(fn),
+    ::portable_stl::forward<t_args>(args)...))) /* noexcept(is_nothrow_invocable_v<t_fn_type, t_args...>) */ {
+  return ::portable_stl::functional_helper::invoke_impl(::portable_stl::forward<t_fn_type>(fn),
+                                        ::portable_stl::forward<t_args>(args)...);
 }
+
 } // namespace portable_stl
 
 #endif // PSTL_INVOKE_H

@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="tree.h"
 // * 
@@ -2200,7 +2200,7 @@ template<class... t_args>
       ::portable_stl::move(node_holder));
   } else {
     return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-      ::portable_stl::portable_stl_error::node_allocate_error};
+      ::portable_stl::portable_stl_error::allocate_error};
   }
 }
 

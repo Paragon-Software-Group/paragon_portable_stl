@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="map.h"
 // * 
@@ -45,7 +45,6 @@
 #else
 #  include "../language_support/no_exception/throw_on_true.h"
 #endif
-
 
 namespace portable_stl {
 
@@ -269,8 +268,7 @@ public:
   template<class t_input_iterator>
   map(t_input_iterator first, t_input_iterator last, key_compare const &comp = key_compare())
       : m_tree(t_value_compare(comp)) {
-    auto insert_result = insert(first, last);
-    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert_result);
+    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert(first, last));
   }
 
   /**
@@ -304,8 +302,7 @@ public:
   template<class t_input_iterator>
   map(t_input_iterator first, t_input_iterator last, key_compare const &comp, allocator_type const &alloc)
       : m_tree(t_value_compare(comp), typename t_base_tree_type::allocator_type(alloc)) {
-    auto insert_result = insert(first, last);
-    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert_result);
+    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert(first, last));
   }
 
   /**
@@ -324,9 +321,10 @@ public:
   static ::portable_stl::expected<map, ::portable_stl::portable_stl_error> make_map(
     t_input_iterator first, t_input_iterator last, key_compare const &comp, allocator_type const &alloc) {
     map ret(comp, alloc);
-    return ret.insert(first, last).transform([&ret](void) -> map {
-      return ::portable_stl::move(ret);
-    });
+    return ret.insert(first, last)
+      .and_then([&ret](void) -> ::portable_stl::expected<map, ::portable_stl::portable_stl_error> {
+        return {::portable_stl::in_place_t{}, ::portable_stl::move(ret)};
+      });
   }
 
   /**
@@ -367,8 +365,7 @@ public:
    * @param other Another container to be used as source to initialize the elements of the container with.
    */
   map(map const &other) : m_tree(other.m_tree) {
-    auto insert_result = insert(other.begin(), other.end());
-    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert_result);
+    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert(other.begin(), other.end()));
   }
 
   /**
@@ -379,8 +376,7 @@ public:
    */
   map(map const &other, allocator_type const &alloc)
       : m_tree(other.m_tree.value_comp(), typename t_base_tree_type::allocator_type(alloc)) {
-    auto insert_result = insert(other.begin(), other.end());
-    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert_result);
+    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert(other.begin(), other.end()));
   }
 
   /**
@@ -412,8 +408,7 @@ public:
    */
   map(std::initializer_list<value_type> init_list, key_compare const &comp = key_compare())
       : m_tree(t_value_compare(comp)) {
-    auto insert_result = insert(init_list.begin(), init_list.end());
-    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert_result);
+    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert(init_list.begin(), init_list.end()));
   }
 
   /**
@@ -427,8 +422,7 @@ public:
    */
   map(std::initializer_list<value_type> init_list, key_compare const &comp, allocator_type const &alloc)
       : m_tree(t_value_compare(comp), typename t_base_tree_type::allocator_type(alloc)) {
-    auto insert_result = insert(init_list.begin(), init_list.end());
-    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert_result);
+    ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(!insert(init_list.begin(), init_list.end()));
   }
 
   /**
@@ -872,8 +866,6 @@ public:
    * an element with a key equivalent to node_hdl.key().
    */
   insert_return_type insert(node_type &&node_hdl) {
-    // _LIBCPP_ASSERT_COMPATIBLE_ALLOCATOR(node_hdl.empty() || node_hdl.get_allocator() == get_allocator(),
-    //                                     "node_type with incompatible allocator passed to map::insert()");
     return m_tree.template node_handle_insert_unique<node_type, insert_return_type>(::portable_stl::move(node_hdl));
   }
 
@@ -1001,8 +993,7 @@ public:
     iterator ptr = lower_bound(key);
     if ((ptr != end()) && !key_comp()(key, ::portable_stl::get<0>(*ptr))) {
       ::portable_stl::get<1>(*ptr) = ::portable_stl::forward<t_value>(value);
-      return ::portable_stl::expected<::portable_stl::tuple<iterator, bool>, ::portable_stl::portable_stl_error>(
-        ::portable_stl::make_tuple(ptr, false));
+      return {::portable_stl::in_place_t{}, ::portable_stl::make_tuple(ptr, false)};
     }
 
     return emplace_hint(ptr, key, ::portable_stl::forward<t_value>(value))
@@ -1030,8 +1021,7 @@ public:
     if ((ptr != end()) && !key_comp()(key, ::portable_stl::get<0>(*ptr))) {
       ::portable_stl::get<1>(*ptr) = ::portable_stl::forward<t_value>(value);
 
-      return ::portable_stl::expected<::portable_stl::tuple<iterator, bool>, ::portable_stl::portable_stl_error>(
-        ::portable_stl::make_tuple(ptr, false));
+      return {::portable_stl::in_place_t{}, ::portable_stl::make_tuple(ptr, false)};
     }
 
     return emplace_hint(ptr, ::portable_stl::move(key), ::portable_stl::forward<t_value>(value))
@@ -1059,21 +1049,18 @@ public:
   template<class t_value>
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> insert_or_assign(
     const_iterator hint_pos, key_type const &key, t_value &&value) {
-    auto result
-      = m_tree.emplace_hint_unique_key_args(hint_pos.m_iter, key, key, ::portable_stl::forward<t_value>(value));
+    return m_tree.emplace_hint_unique_key_args(hint_pos.m_iter, key, key, ::portable_stl::forward<t_value>(value))
+      .transform(
+        [&value](::portable_stl::tuple<typename t_base_tree_type::iterator, bool> tmp_empl_result) -> iterator {
+          auto iter     = ::portable_stl::get<0>(tmp_empl_result);
+          bool inserted = ::portable_stl::get<1>(tmp_empl_result);
 
-    if (!result) {
-      return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-    }
+          if (!inserted) {
+            ::portable_stl::get<1>(iter->get_value()) = ::portable_stl::forward<t_value>(value);
+          }
 
-    auto ret      = ::portable_stl::get<0>(result.value());
-    bool inserted = ::portable_stl::get<1>(result.value());
-
-    if (!inserted) {
-      ::portable_stl::get<1>(ret->get_value()) = ::portable_stl::forward<t_value>(value);
-    }
-
-    return ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error>(ret);
+          return iter;
+        });
   }
 
   /**
@@ -1095,20 +1082,18 @@ public:
   template<class t_value>
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> insert_or_assign(
     const_iterator hint_pos, key_type &&key, t_value &&value) {
-    auto result = m_tree.emplace_hint_unique_key_args(
-      hint_pos.m_iter, key, ::portable_stl::move(key), ::portable_stl::forward<t_value>(value));
+    return m_tree.emplace_hint_unique_key_args(hint_pos.m_iter, key, ::portable_stl::move(key), ::portable_stl::forward<t_value>(value))
+      .transform(
+        [&value](::portable_stl::tuple<typename t_base_tree_type::iterator, bool> tmp_empl_result) -> iterator {
+          auto iter     = ::portable_stl::get<0>(tmp_empl_result);
+          bool inserted = ::portable_stl::get<1>(tmp_empl_result);
 
-    if (!result) {
-      return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{result.error()};
-    }
-    auto ret      = ::portable_stl::get<0>(result.value());
-    bool inserted = ::portable_stl::get<1>(result.value());
+          if (!inserted) {
+            ::portable_stl::get<1>(iter->get_value()) = ::portable_stl::forward<t_value>(value);
+          }
 
-    if (!inserted) {
-      ::portable_stl::get<1>(ret->get_value()) = ::portable_stl::forward<t_value>(value);
-    }
-
-    return ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error>(ret);
+          return iter;
+        });
   }
 
   /**

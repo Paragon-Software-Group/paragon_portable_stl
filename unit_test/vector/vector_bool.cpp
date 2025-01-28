@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector_bool.cpp"
 // * 
@@ -129,7 +129,7 @@ TEST(vector_bool, resize) {
     TestUIntSimpleAlloc::m_counter_ok_allocation = 0;
     auto result                                  = vec.resize(2 * min_cap + 1);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // check invariant
     EXPECT_EQ(old_cap, vec.capacity());
@@ -227,7 +227,7 @@ TEST(vector_bool, reserve) {
     auto result                                  = vec.reserve(2 * min_cap);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     ASSERT_EQ(min_cap, vec.capacity());
     ASSERT_EQ(min_cap, vec.size());

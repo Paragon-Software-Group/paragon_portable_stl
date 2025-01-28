@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector.cpp"
 // * 
@@ -504,7 +504,7 @@ TEST(vector, reserve) {
     ASSERT_FALSE(result);
     ASSERT_EQ(0, vec.capacity());
     ASSERT_EQ(0, vec.size());
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // Max size

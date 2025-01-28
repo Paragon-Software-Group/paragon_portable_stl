@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="list_impl.h"
 // * 
@@ -428,7 +428,7 @@ protected:
       return ::portable_stl::expected<t_node_pointer, ::portable_stl::portable_stl_error>(node_holder.release());
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::node_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
 

@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="char_traits.h"
 // * 
@@ -60,7 +60,7 @@ public:
    * @param lhv Character to assign to.
    * @param rhv Character value to assign.
    */
-  constexpr static void assign(char_type &lhv, char_type const &rhv) noexcept {
+  constexpr inline static void assign(char_type &lhv, char_type const &rhv) noexcept {
     lhv = rhv;
   }
 
@@ -72,7 +72,7 @@ public:
    * @param rhv Character value to assign.
    * @return char_type*
    */
-  static char_type *assign(char_type *ptr, ::portable_stl::size_t count, char_type rhv) noexcept {
+  inline static char_type *assign(char_type *ptr, ::portable_stl::size_t count, char_type rhv) noexcept {
     for (::portable_stl::size_t pos{0ULL}; pos < count; ++pos) {
       assign(ptr[pos], rhv);
     }
@@ -112,8 +112,7 @@ public:
    * @param count The number of characters to copy.
    * @return dest.
    */
-  inline static char_type *move(
-    char_type *dest, char_type const *src, ::portable_stl::size_t count) noexcept {
+  inline static char_type *move(char_type *dest, char_type const *src, ::portable_stl::size_t count) noexcept {
     if (0 == count) {
       return dest;
     }
@@ -141,8 +140,7 @@ public:
    * @param count The number of characters to copy.
    * @return constexpr char_type*
    */
-  inline static char_type *copy(
-    char_type *dest, char_type const *src, ::portable_stl::size_t count) noexcept {
+  inline static char_type *copy(char_type *dest, char_type const *src, ::portable_stl::size_t count) noexcept {
     char_type *ret = dest;
     for (; count; --count, ++dest, ++src) {
       assign(*dest, *src);
@@ -277,19 +275,19 @@ public:
   using state_type          = ::portable_stl::uint32_t;
   using comparison_category = ::portable_stl::strong_ordering;
 
-  constexpr static void assign(char_type &lhv, char_type const &rhv) noexcept {
+  constexpr inline static void assign(char_type &lhv, char_type const &rhv) noexcept {
     lhv = rhv;
   }
 
-  constexpr static bool eq(char_type lhv, char_type rhv) noexcept {
+  constexpr inline static bool eq(char_type lhv, char_type rhv) noexcept {
     return lhv == rhv;
   }
 
-  constexpr static bool lt(char_type lhv, char_type rhv) noexcept {
+  constexpr inline static bool lt(char_type lhv, char_type rhv) noexcept {
     return static_cast<unsigned char>(lhv) < static_cast<unsigned char>(rhv);
   }
 
-  static ::portable_stl::int32_t compare(
+  inline static ::portable_stl::int32_t compare(
     char_type const *s1, char_type const *s2, ::portable_stl::size_t count) noexcept {
     if (0 == count) {
       return 0;
@@ -360,21 +358,21 @@ public:
   using state_type          = ::portable_stl::uint32_t;
   using comparison_category = ::portable_stl::strong_ordering;
 
-  constexpr static void assign(char_type &lhv, char_type const &rhv) noexcept {
+  constexpr inline static void assign(char_type &lhv, char_type const &rhv) noexcept {
     lhv = rhv;
   }
 
-  constexpr static bool eq(char_type lhv, char_type rhv) noexcept {
+  constexpr inline static bool eq(char_type lhv, char_type rhv) noexcept {
     return lhv == rhv;
   }
 
-  constexpr static bool lt(char_type lhv, char_type rhv) noexcept {
+  constexpr inline static bool lt(char_type lhv, char_type rhv) noexcept {
     return lhv < rhv;
   }
 
   // __constexpr_memcmp requires a trivially lexicographically comparable type, but char is not when char is a signed
   // type (from clang)
-  static ::portable_stl::int32_t compare(
+  inline static ::portable_stl::int32_t compare(
     char_type const *s1, char_type const *s2, ::portable_stl::size_t count) noexcept {
     if (0 == count) {
       return 0;
@@ -445,19 +443,19 @@ public:
   using state_type          = ::portable_stl::uint32_t;
   using comparison_category = ::portable_stl::strong_ordering;
 
-  constexpr static void assign(char_type &lhv, char_type const &rhv) noexcept {
+  constexpr inline static void assign(char_type &lhv, char_type const &rhv) noexcept {
     lhv = rhv;
   }
 
-  constexpr static bool eq(char_type lhv, char_type rhv) noexcept {
+  constexpr inline static bool eq(char_type lhv, char_type rhv) noexcept {
     return lhv == rhv;
   }
 
-  constexpr static bool lt(char_type lhv, char_type rhv) noexcept {
+  constexpr inline static bool lt(char_type lhv, char_type rhv) noexcept {
     return lhv < rhv;
   }
 
-  static ::portable_stl::int32_t compare(
+  inline static ::portable_stl::int32_t compare(
     char_type const *s1, char_type const *s2, ::portable_stl::size_t count) noexcept {
     if (0 == count) {
       return 0;

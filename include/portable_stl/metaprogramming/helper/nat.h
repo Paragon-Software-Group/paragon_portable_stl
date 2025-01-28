@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="nat.h"
 // * 
@@ -14,7 +14,7 @@
 
 namespace portable_stl {
 /**
- * @brief
+ * @brief "Not-A-Type" is mainly used as a tag type for SFINAE.
  */
 class nat_class {
 public:
@@ -24,12 +24,12 @@ public:
   nat_class()                             = delete;
   /**
    * @brief Deleted.
-   * @param  
+   * @param
    */
   nat_class(nat_class const &)            = delete;
   /**
    * @brief Deleted.
-   * @return 
+   * @return
    */
   nat_class &operator=(nat_class const &) = delete;
   /**

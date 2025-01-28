@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="basic_string.cpp"
 // * 
@@ -178,7 +178,7 @@ TEST(basic_string, make_char_count) {
     auto result                        = TString::make_string(25, 'a');
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
     TMManager::m_counter_ok_allocation = 100;
   }
 }
@@ -447,7 +447,7 @@ TEST(basic_string, make_string_pos) {
     auto result = TString::make_string(test_string_helper::s2, 0);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     TMManager::m_counter_ok_allocation = 100;
   }
@@ -728,7 +728,7 @@ TEST(basic_string, make_string_pos_count) {
     auto result = TString::make_string(s3, 0, 25);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     TMManager::m_counter_ok_allocation = 100;
   }
@@ -851,7 +851,7 @@ TEST(basic_string, make_pointer_len) {
     auto result = TString::make_string("123456789012345678901234567890", 25);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
     TMManager::m_counter_ok_allocation = 100;
   }
 }
@@ -968,7 +968,7 @@ TEST(basic_string, make_pointer) {
     auto result                        = TString::make_string("1234567890123456789012345");
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
   }
 }
 
@@ -1033,7 +1033,7 @@ TEST(basic_string, make_two_iterators) {
     auto result = TString::make_string(&test_string_helper::test_string2[0], &test_string_helper::test_string2[25]);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
   }
 }
 
@@ -1121,7 +1121,7 @@ TEST(basic_string, make_copy) {
     auto result = TString::make_string(s0);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
   }
 }
 
@@ -1212,7 +1212,7 @@ TEST(basic_string, make_copy_with_allocator) {
     auto result = TString::make_string(s0);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
   }
 }
 
@@ -1362,7 +1362,7 @@ TEST(basic_string, make_initializer_list) {
                                         '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5'});
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
   }
 }
 
@@ -1457,7 +1457,7 @@ TEST(basic_string, make_string_view) {
     auto result = TString::make_string(TString::view_type("1234567890123456789012345"));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    ASSERT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
   }
 }
 
@@ -1707,7 +1707,7 @@ TEST(basic_string, make_string_view_pos_count) {
 
     ASSERT_FALSE(result);
 
-    EXPECT_EQ(result.error(), ::portable_stl::portable_stl_error::string_allocate_error);
+    EXPECT_EQ(result.error(), ::portable_stl::portable_stl_error::allocate_error);
   }
   // start position out of range before bad alloc
   {
@@ -1940,7 +1940,7 @@ TEST(basic_string, substr_safe) {
     auto result                        = long_s0.substr_safe(0);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
   // start position out of range before bad alloc
   {

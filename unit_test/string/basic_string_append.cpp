@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="basic_string_append.cpp"
 // * 
@@ -122,7 +122,7 @@ TEST(basic_string, append_count_char) {
     TString s{test_string_helper::s1};
 
     test_string_append_helper::append_count_char(
-      s, test_string_helper::chars_in_SSO + 1, 'a', true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, test_string_helper::chars_in_SSO + 1, 'a', true, ::portable_stl::portable_stl_error::allocate_error);
   }
 }
 
@@ -177,7 +177,7 @@ TEST(basic_string, append_string_view) {
     TString s{test_string_helper::s1};
 
     test_string_append_helper::append_string_view(
-      s, test_string_helper::s2, true, ::portable_stl::portable_stl_error::string_allocate_error);
+      s, test_string_helper::s2, true, ::portable_stl::portable_stl_error::allocate_error);
   }
 }
 

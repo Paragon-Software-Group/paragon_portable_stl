@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector.h"
 // * 
@@ -74,7 +74,6 @@
 #else
 #  include "../language_support/no_exception/throw_on_true.h"
 #endif
-
 
 namespace portable_stl {
 
@@ -759,7 +758,7 @@ public:
    *
    * @param new_cap New capacity of the vector, in number of elements.
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate(),
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate(),
    * @return void, otherwise.
    */
   ::portable_stl::expected<void, ::portable_stl::portable_stl_error> reserve(size_type new_cap);
@@ -922,7 +921,7 @@ public:
    *
    * @param new_size New size of the container.
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate(),
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate(),
    * @return void, otherwise.
    */
   ::portable_stl::expected<void, ::portable_stl::portable_stl_error> resize(size_type new_size);
@@ -936,7 +935,7 @@ public:
    * @param new_size New size of the container.
    * @param value The value to initialize the new elements with.
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate(),
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate(),
    * @return void, otherwise.
    */
   ::portable_stl::expected<void, ::portable_stl::portable_stl_error> resize(size_type new_size, const_reference value);
@@ -952,7 +951,7 @@ public:
    * @param args Arguments to forward to the constructor of the element.
    * @return A reference wrapper to the inserted element,
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate().
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate().
    */
   template<class... t_args>
   ::portable_stl::expected<reference_wrap, ::portable_stl::portable_stl_error> emplace_back(t_args &&...args);
@@ -963,7 +962,7 @@ public:
    *
    * @param value The value of the element to append
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate(),
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate(),
    * @return void, otherwise.
    */
   ::portable_stl::expected<void, ::portable_stl::portable_stl_error> push_back(const_reference value);
@@ -974,7 +973,7 @@ public:
    *
    * @param value The value of the element to append
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate(),
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate(),
    * @return void, otherwise.
    */
   ::portable_stl::expected<void, ::portable_stl::portable_stl_error> push_back(value_type &&value);
@@ -1000,7 +999,7 @@ public:
    * @param args Arguments.
    * @return An iterator that points to the inserted data,
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate().
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate().
    */
   template<class... t_args>
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> emplace(const_iterator position,
@@ -1026,7 +1025,7 @@ public:
    * @param value Element value to insert.
    * @return Iterator pointing to the inserted value,
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate().
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate().
    */
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> insert(const_iterator  position,
                                                                                 const_reference value);
@@ -1039,7 +1038,7 @@ public:
    * @param value Element value to insert.
    * @return Iterator pointing to the inserted value,
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate().
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate().
    */
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> insert(const_iterator position,
                                                                                 value_type   &&value);
@@ -1053,7 +1052,7 @@ public:
    * @param value Element value to insert.
    * @return Iterator pointing to the first element inserted, or position if num == 0,
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate().
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate().
    */
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> insert(
     const_iterator position, size_type num, const_reference value);
@@ -1068,7 +1067,7 @@ public:
    * @param last The range of elements to insert, cannot be iterators into container for which insert is called.
    * @return Iterator pointing to the first element inserted, or position if first == last,
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate().
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate().
    */
   template<class t_input_iterator, vector_helper::enable_for_input_iter<t_input_iterator, value_type> = nullptr>
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> insert(
@@ -1084,7 +1083,7 @@ public:
    * @param last The range of elements to insert, cannot be iterators into container for which insert is called.
    * @return Iterator pointing to the first element inserted, or position if first == last,
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate().
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate().
    */
   template<class t_forward_iterator, vector_helper::enable_for_forward_iter<t_forward_iterator, value_type> = nullptr>
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> insert(
@@ -1098,7 +1097,7 @@ public:
    * @param init_list initializer_list to insert the values from.
    * @return Iterator pointing to the first element inserted, or position if init_list is empty,
    * @return portable_stl_error::length_error if new_cap > max_size(),
-   * @return portable_stl_error::vector_allocate_error if any exception thrown by t_allocator::allocate().
+   * @return portable_stl_error::allocate_error if any exception thrown by t_allocator::allocate().
    */
   ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error> insert(
     const_iterator position, initializer_list<value_type> init_list) {
@@ -1346,7 +1345,7 @@ template<class t_type, class t_allocator>
     auto result = vec.M_vallocate(num);
     if (!result) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     M_construct_at_end(vec, num);
     // if construction throw, guard clean vector
@@ -1389,7 +1388,7 @@ template<class t_type, class t_allocator>
     auto result = vec.M_vallocate(num);
     if (!result) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     M_construct_at_end(vec, num);
     // if construction throw, guard clean vector
@@ -1455,7 +1454,7 @@ template<class t_type, class t_allocator>
     auto result = vec.M_vallocate(num);
     if (!result) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     M_construct_at_end(vec, num, value);
     // if construction throw, guard clean vector
@@ -1502,7 +1501,7 @@ template<class>
     auto result = vec.M_vallocate(num);
     if (!result) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     M_construct_at_end(vec, num, value);
     // if construction throw, guard clean vector
@@ -1564,9 +1563,10 @@ template<class t_input_iterator, vector_helper::enable_for_input_iter<t_input_it
 ::portable_stl::expected<vector<t_type, t_allocator>, ::portable_stl::portable_stl_error>
   vector<t_type, t_allocator>::make_vector(t_input_iterator first, t_input_iterator last) {
   vector vec;
-  return M_init_with_sentinel(vec, first, last).transform([&vec](void) -> vector {
-    return ::portable_stl::move(vec);
-  });
+  return M_init_with_sentinel(vec, first, last)
+    .and_then([&vec](void) -> ::portable_stl::expected<vector, ::portable_stl::portable_stl_error> {
+      return {::portable_stl::in_place_t{}, ::portable_stl::move(vec)};
+    });
 }
 
 template<class t_type, class t_allocator>
@@ -1582,9 +1582,10 @@ template<class t_input_iterator, vector_helper::enable_for_input_iter<t_input_it
 ::portable_stl::expected<vector<t_type, t_allocator>, ::portable_stl::portable_stl_error>
   vector<t_type, t_allocator>::make_vector(t_input_iterator first, t_input_iterator last, allocator_type const &alloc) {
   vector vec{alloc};
-  return M_init_with_sentinel(vec, first, last).transform([&vec](void) -> vector {
-    return ::portable_stl::move(vec);
-  });
+  return M_init_with_sentinel(vec, first, last)
+    .and_then([&vec](void) -> ::portable_stl::expected<vector, ::portable_stl::portable_stl_error> {
+      return {::portable_stl::in_place_t{}, ::portable_stl::move(vec)};
+    });
 }
 
 template<class t_type, class t_allocator>
@@ -1598,13 +1599,13 @@ template<class t_type, class t_allocator>
 template<class t_input_iterator, class t_sentinel>
 void vector<t_type, t_allocator>::M_init_with_size(t_input_iterator first, t_sentinel last, size_type num) {
   if (num > 0) {
-    bool const has_length_error{num > max_size()};
+    bool const has_length_error{num >= max_size()};
     ::portable_stl::throw_on_true<::portable_stl::length_error<>>(has_length_error);
     if (has_length_error) {
       return;
     }
     auto       guard = ::portable_stl::make_exception_guard(M_destroy_vector(*this));
-    auto const ptr = M_vallocate(num);
+    auto const ptr   = M_vallocate(num);
     ::portable_stl::throw_on_true<::portable_stl::bad_alloc<>>(nullptr == ptr);
     if (nullptr != ptr) {
       M_construct_at_end(first, last, num);
@@ -1633,7 +1634,7 @@ template<class t_input_iterator, class t_sentinel>
     auto result = vec.M_vallocate(num);
     if (!result) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     vec.M_construct_at_end(first, last, num);
     guard.commit();
@@ -1652,9 +1653,10 @@ template<class t_forward_iterator, vector_helper::enable_for_forward_iter<t_forw
     return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
       ::portable_stl::portable_stl_error::length_error};
   }
-  return M_init_with_size(vec, first, last, num).transform([&vec](void) -> vector {
-    return ::portable_stl::move(vec);
-  });
+  return M_init_with_size(vec, first, last, num)
+    .and_then([&vec](void) -> ::portable_stl::expected<vector, ::portable_stl::portable_stl_error> {
+      return {::portable_stl::in_place_t{}, ::portable_stl::move(vec)};
+    });
 }
 
 template<class t_type, class t_allocator>
@@ -1677,9 +1679,10 @@ template<class t_forward_iterator, vector_helper::enable_for_forward_iter<t_forw
     return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
       ::portable_stl::portable_stl_error::length_error};
   }
-  return M_init_with_size(vec, first, last, num).transform([&vec](void) -> vector {
-    return ::portable_stl::move(vec);
-  });
+  return M_init_with_size(vec, first, last, num)
+    .and_then([&vec](void) -> ::portable_stl::expected<vector, ::portable_stl::portable_stl_error> {
+      return {::portable_stl::in_place_t{}, ::portable_stl::move(vec)};
+    });
 }
 
 template<class t_type, class t_allocator>
@@ -1948,7 +1951,7 @@ template<class t_type, class t_allocator>
       M_swap_out_circular_buffer(buf);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<void, ::portable_stl::portable_stl_error>();
@@ -1959,13 +1962,12 @@ template<class t_other_type>
 ::portable_stl::expected<typename vector<t_type, t_allocator>::pointer, ::portable_stl::portable_stl_error>
   vector<t_type, t_allocator>::M_push_back_slow_path(t_other_type &&other) {
   allocator_type &alloc{M_alloc()};
-  size_type       new_size{size() + 1};
-  if (new_size > max_size()) {
+  if (size() >= max_size()) {
     return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
       ::portable_stl::portable_stl_error::length_error};
   }
   auto buf = ::portable_stl::split_buffer<value_type, allocator_type &>::make_split_buffer(
-    M_recommend(new_size), size(), alloc);
+    M_recommend(size() + 1), size(), alloc);
   if (buf.m_first) {
     // buf.push_back(::portable_stl::forward<t_other_type>(value));
     t_allocator_traits::construct(
@@ -1975,7 +1977,7 @@ template<class t_other_type>
     return ::portable_stl::expected<pointer, ::portable_stl::portable_stl_error>(m_end);
   }
   return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-    ::portable_stl::portable_stl_error::vector_allocate_error};
+    ::portable_stl::portable_stl_error::allocate_error};
 }
 
 template<typename t_type, typename t_allocator>
@@ -2061,6 +2063,10 @@ template<class... t_args>
 typename vector<t_type, t_allocator>::pointer vector<t_type, t_allocator>::M_emplace_back_slow_path(t_args &&...args) {
   allocator_type &alloc{M_alloc()};
 
+  if (size() >= max_size()) {
+    return nullptr;
+  }
+
   auto buf = ::portable_stl::split_buffer<value_type, allocator_type &>::make_split_buffer(
     M_recommend(size() + 1), size(), alloc);
   if (buf.m_first) {
@@ -2088,7 +2094,7 @@ template<typename... t_args>
     end = M_emplace_back_slow_path(::portable_stl::forward<t_args>(args)...);
     if (!end) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   // update state
@@ -2162,26 +2168,25 @@ template<typename t_type, typename t_allocator>
 
       // check if the value (ref) was already in vector
       const_pointer value_ptr{::portable_stl::pointer_traits<const_pointer>::pointer_to(value)};
-      if (ptr <= value_ptr && value_ptr < m_end) {
+      if ((ptr <= value_ptr) && (value_ptr < m_end)) {
         ++value_ptr;
       }
       *ptr = *value_ptr;
     }
   } else {
     allocator_type &alloc = M_alloc();
-    size_type       new_size{size() + 1};
-    if (new_size > max_size()) {
+    if (size() >= max_size()) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
         ::portable_stl::portable_stl_error::length_error};
     }
     auto buf = ::portable_stl::split_buffer<value_type, allocator_type &>::make_split_buffer(
-      M_recommend(new_size), ::portable_stl::size_t(ptr - m_begin), alloc);
+      M_recommend(size() + 1), ::portable_stl::size_t(ptr - m_begin), alloc);
     if (buf.m_first) {
       buf.push_back(value);
       ptr = M_swap_out_circular_buffer(buf, ptr);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error>(M_make_iter(ptr));
@@ -2201,8 +2206,7 @@ template<typename t_type, typename t_allocator>
     }
   } else {
     allocator_type &alloc = M_alloc();
-    size_type       new_size{size() + 1};
-    if (new_size > max_size()) {
+    if (size() >= max_size()) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
         ::portable_stl::portable_stl_error::length_error};
     }
@@ -2213,7 +2217,7 @@ template<typename t_type, typename t_allocator>
       ptr = M_swap_out_circular_buffer(buf, ptr);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error>(M_make_iter(ptr));
@@ -2235,7 +2239,7 @@ template<typename t_type, typename t_allocator>
   pointer ptr = m_begin + (position - begin());
   if (num > 0) {
     // We can't compare unrelated pointers inside constant expressions
-    if (!is_constant_evaluated() && num <= static_cast<size_type>(M_end_cap() - m_end)) {
+    if (!is_constant_evaluated() && (num <= static_cast<size_type>(M_end_cap() - m_end))) {
       size_type old_num{num};
       pointer   old_last{m_end};
       if (num > static_cast<size_type>(m_end - ptr)) {
@@ -2246,7 +2250,7 @@ template<typename t_type, typename t_allocator>
       if (num > 0) {
         M_move_range(ptr, old_last, ptr + old_num);
         const_pointer value_ptr = ::portable_stl::pointer_traits<const_pointer>::pointer_to(value);
-        if (ptr <= value_ptr && value_ptr < m_end) {
+        if ((ptr <= value_ptr) && (value_ptr < m_end)) {
           value_ptr += old_num;
         }
         ::portable_stl::fill_n(ptr, num, *value_ptr);
@@ -2265,7 +2269,7 @@ template<typename t_type, typename t_allocator>
         ptr = M_swap_out_circular_buffer(buf, ptr);
       } else {
         return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-          ::portable_stl::portable_stl_error::vector_allocate_error};
+          ::portable_stl::portable_stl_error::allocate_error};
       }
     }
   }
@@ -2295,14 +2299,14 @@ template<class t_input_iterator, class t_sentinel>
     auto res0 = buf.M_construct_at_end_with_sentinel(::portable_stl::move(first), ::portable_stl::move(last));
     if (!res0) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     difference_type const old_size{old_last - m_begin};
     difference_type const old_p{ptr - m_begin};
     auto                  res1 = reserve(M_recommend(size() + buf.size()));
     if (!res1) {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     ptr      = m_begin + old_p;
     old_last = m_begin + old_size;
@@ -2350,7 +2354,7 @@ template<class t_iterator, class t_sentinel>
         ::portable_stl::copy(first, m, ptr);
       }
     } else {
-      allocator_type &alloc = M_alloc();
+      allocator_type &alloc    = M_alloc();
       size_type       new_size = {size() + static_cast<size_type>(num)};
       if (new_size > max_size()) {
         return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
@@ -2363,7 +2367,7 @@ template<class t_iterator, class t_sentinel>
         ptr = M_swap_out_circular_buffer(buf, ptr);
       } else {
         return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-          ::portable_stl::portable_stl_error::vector_allocate_error};
+          ::portable_stl::portable_stl_error::allocate_error};
       }
     }
   }
@@ -2404,7 +2408,7 @@ template<class... t_args>
       ptr = M_swap_out_circular_buffer(buf, ptr);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<iterator, ::portable_stl::portable_stl_error>(M_make_iter(ptr));
@@ -2440,7 +2444,7 @@ template<class t_type, class t_allocator>
       M_swap_out_circular_buffer(buf);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<void, ::portable_stl::portable_stl_error>();
@@ -2492,7 +2496,7 @@ template<class t_type, class t_allocator>
       M_swap_out_circular_buffer(buf);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::vector_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
   }
   return ::portable_stl::expected<void, ::portable_stl::portable_stl_error>();

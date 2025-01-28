@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="allocator_arg.h"
 // * 
@@ -15,8 +15,7 @@
 namespace portable_stl {
 /**
  * @brief allocator_arg_t is an empty class type used to disambiguate the overloads of constructors and member
- * functions of allocator-aware objects, including ::tuple, ::function, ::packaged_task,(until C++17) and
- * ::promise
+ * functions of allocator-aware objects, including tuple, function, packaged_task, (until C++17) and promise.
  */
 class allocator_arg_t {
 public:

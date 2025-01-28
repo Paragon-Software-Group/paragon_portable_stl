@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="basic_string_view.h"
 // * 
@@ -960,8 +960,13 @@ public:
       ++pos;
     }
     if (!view.empty()) {
-      result = ::portable_stl::find_first_of(
-        reverse_iterator{begin() + pos}, rend(), view.begin(), view.end(), traits_type::eq);
+      result = ::portable_stl::find_first_of(reverse_iterator{begin() + pos},
+                                             rend(),
+                                             view.begin(),
+                                             view.end(),
+                                             [](value_type const left, value_type const right) -> bool {
+                                               return traits_type::eq(left, right);
+                                             });
     }
     return ((rend() == result) ? npos : static_cast<size_type>(::portable_stl::distance(result, rend())) - 1UL);
   }

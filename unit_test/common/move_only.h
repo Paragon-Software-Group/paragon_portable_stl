@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="move_only.h"
 // * 
@@ -50,27 +50,27 @@ public:
   template<class T> friend void operator,(T, MoveOnly const &) = delete;
 };
 
-static bool operator==(MoveOnly const &x, MoveOnly const &y) noexcept {
+constexpr static bool operator==(MoveOnly const &x, MoveOnly const &y) noexcept {
   return x.getData() == y.getData();
 }
 
-static bool operator!=(MoveOnly const &x, MoveOnly const &y) noexcept {
-  return x.getData() != y.getData();
-}
+// static bool operator!=(MoveOnly const &x, MoveOnly const &y) noexcept {
+//   return x.getData() != y.getData();
+// }
 
-static constexpr bool operator<(MoveOnly const &x, MoveOnly const &y) noexcept {
+constexpr static bool operator<(MoveOnly const &x, MoveOnly const &y) noexcept {
   return x.getData() < y.getData();
 }
 
-static constexpr bool operator<=(MoveOnly const &x, MoveOnly const &y) noexcept {
+constexpr static bool operator<=(MoveOnly const &x, MoveOnly const &y) noexcept {
   return x.getData() <= y.getData();
 }
 
-static constexpr bool operator>(MoveOnly const &x, MoveOnly const &y) noexcept {
+constexpr static bool operator>(MoveOnly const &x, MoveOnly const &y) noexcept {
   return x.getData() > y.getData();
 }
 
-static constexpr bool operator>=(MoveOnly const &x, MoveOnly const &y) noexcept {
+constexpr static bool operator>=(MoveOnly const &x, MoveOnly const &y) noexcept {
   return x.getData() >= y.getData();
 }
 } // namespace test_common_helper

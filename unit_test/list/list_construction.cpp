@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="list_construction.cpp"
 // * 
@@ -165,7 +165,7 @@ TEST(list, make_count_value) {
 
     auto result = ::portable_stl::list<std::int32_t, t_allocator>::make_list(5, 2);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     t_node_allocator::m_counter_ok_allocation = 10000;
   }
@@ -242,7 +242,7 @@ TEST(list, make_count_value_allocator) {
 
     auto result = ::portable_stl::list<std::int32_t, t_allocator>::make_list(5, 2, alloc);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -317,7 +317,7 @@ TEST(list, make_count) {
 
     auto result = ::portable_stl::list<std::int32_t, t_allocator>::make_list(5);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     t_node_allocator::m_counter_ok_allocation = 10000;
   }
@@ -394,7 +394,7 @@ TEST(list, make_count_allocator) {
 
     auto result = ::portable_stl::list<std::int32_t, t_allocator>::make_list(5, alloc);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -483,7 +483,7 @@ TEST(list, make_iter_iter) {
       test_iterator_helper::tst_input_iterator<std::int32_t *>(arr),
       test_iterator_helper::tst_input_iterator<std::int32_t *>(arr + arr_size));
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     t_node_allocator::m_counter_ok_allocation = 10000;
   }
@@ -577,7 +577,7 @@ TEST(list, make_iter_iter_allocator) {
       test_iterator_helper::tst_input_iterator<std::int32_t *>(arr + arr_size),
       alloc);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -676,7 +676,7 @@ TEST(list, make_copy) {
     t_node_allocator::m_counter_ok_allocation = 3;
     auto result                               = ::portable_stl::list<std::int32_t, t_allocator>::make_list(lst0);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     t_node_allocator::m_counter_ok_allocation = 10000;
   }
@@ -743,7 +743,7 @@ TEST(list, make_copy_allocator) {
 
     auto result = ::portable_stl::list<std::int32_t, t_allocator>::make_list(lst0, alloc);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -907,7 +907,7 @@ TEST(list, make_move_allocator) {
 
     auto result = ::portable_stl::list<t_move_only, t_allocator>::make_list(std::move(lst), alloc);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -983,7 +983,7 @@ TEST(list, make_init_list) {
 
     auto result = ::portable_stl::list<std::int32_t, t_allocator>::make_list({0, 1, 2, 3, 4});
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     t_node_allocator::m_counter_ok_allocation = 10000;
   }
@@ -1059,6 +1059,6 @@ TEST(list, make_init_list_allocator) {
 
     auto result = ::portable_stl::list<std::int32_t, t_allocator>::make_list({0, 1, 2, 3, 4}, alloc);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }

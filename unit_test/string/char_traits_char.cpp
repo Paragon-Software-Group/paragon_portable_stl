@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="char_traits_char.cpp"
 // * 
@@ -88,7 +88,7 @@ TEST(char_traits_char, compare) {
   {
     t_char_type a[]{static_cast<t_char_type>(-1), 0};
     t_char_type b[]{1, 0};
-    // EXPECT_GT(test_char_traits::compare(a, b, 1), 0); // TODO
+    EXPECT_GT(test_char_traits::compare(a, b, 1), 0);
   }
 }
 

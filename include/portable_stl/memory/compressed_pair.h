@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="compressed_pair.h"
 // * 
@@ -441,6 +441,19 @@ public:
    *
    */
   compressed_pair() noexcept = default;
+
+  /**
+   * @brief Construct a new compressed pair object
+   * t_args_first and t_args_second are not actually used, as they are empty.
+   * 
+   * @tparam t_args_first
+   * @tparam t_args_second
+   * @param first_args
+   * @param second_args
+   */
+  template<class t_args_first, class t_args_second>
+  compressed_pair(t_args_first first_args, t_args_second second_args) : t_first(first_args), t_second(second_args) {
+  }
 
   /**
    * @brief Get first value.

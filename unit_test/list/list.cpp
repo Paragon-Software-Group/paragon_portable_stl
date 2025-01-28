@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="list.cpp"
 // * 
@@ -66,7 +66,7 @@ TEST(list, assign_count_value) {
     stat.m_throw_after = 3;
     auto result        = lst.assign(4, 3);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(lst_ref, lst);
@@ -125,7 +125,7 @@ TEST(list, assign_iter_iter) {
     auto result        = lst.assign(test_iterator_helper::tst_input_iterator<std::int32_t *>(arr),
                              test_iterator_helper::tst_input_iterator<std::int32_t *>(arr + arr_size));
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(lst_ref, lst);

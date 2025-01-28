@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector_insert.cpp"
 // * 
@@ -167,7 +167,7 @@ TEST(vector, insert_iter_lvalue) {
     auto result                        = vec.insert(vec.cbegin() + 5, value);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check invariant: strong guarantee
     EXPECT_EQ(sz, vec.size());
@@ -392,7 +392,7 @@ TEST(vector, insert_iter_rvalue) {
     auto result                        = vec.insert(vec.cbegin() + 5, t_move_type(7));
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check invariant: strong guarantee
     EXPECT_EQ(sz, vec.size());
@@ -639,7 +639,7 @@ TEST(vector, insert_iter_num_value) {
     auto result                        = vec.insert(vec.cbegin() + 5, 5, value);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check invariant: strong guarantee
     EXPECT_EQ(sz, vec.size());
@@ -943,7 +943,7 @@ TEST(vector, insert_iter_iter_iter_input_iterators) {
                              test_iterator_helper::tst_input_iterator<std::int32_t const *>(a + N));
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check vector invariant: strong guarantee
     ASSERT_EQ(origin_size, vec.size());
@@ -977,7 +977,7 @@ TEST(vector, insert_iter_iter_iter_input_iterators) {
                              test_iterator_helper::tst_input_iterator<std::int32_t const *>(a + N));
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check vector invariant: strong guarantee
     ASSERT_EQ(origin_size, vec.size());
@@ -1151,7 +1151,7 @@ TEST(vector, insert_iter_iter_iter_forward_iterators) {
                              test_iterator_helper::tst_forward_iterator<std::int32_t const *>(a + N));
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check vector invariant: strong guarantee
     ASSERT_EQ(origin_size, vec.size());

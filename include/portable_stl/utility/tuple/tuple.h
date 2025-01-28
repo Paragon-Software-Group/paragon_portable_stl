@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="tuple.h"
 // * 
@@ -53,12 +53,9 @@
 #include "tuple_size.h"
 #include "tuple_tie.h"
 #include "tuple_val.h"
+#include "../piecewise_construct.h"
 
 namespace portable_stl {
-
-struct piecewise_construct_t { // tag type for pair tuple arguments
-  explicit piecewise_construct_t() = default;
-};
 
 template<size_t t_index, class... t_types> auto &&_Tuple_get(tuple<t_types...> &&given_tuple) noexcept {
     // used by pair's piecewise constructor
@@ -138,7 +135,7 @@ public:
   }
 
   template<class... t_first_types1, class... t_first_types2>
-  tuple(piecewise_construct_t, tuple<t_first_types1...> tpl1, tuple<t_first_types2...> tpl2)
+  tuple(::portable_stl::piecewise_construct_t, tuple<t_first_types1...> tpl1, tuple<t_first_types2...> tpl2)
       : tuple(tpl1,
               tpl2,
               ::portable_stl::index_sequence_for<t_first_types1...>{},

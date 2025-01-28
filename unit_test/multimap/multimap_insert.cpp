@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="multimap_insert.cpp"
 // * 
@@ -108,7 +108,7 @@ TEST(multimap, insert_value_type) {
     auto               result = mp.insert(value);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Strong guarantee
     ASSERT_EQ(3, mp.size());
@@ -312,7 +312,7 @@ TEST(multimap, insert_pos_value_type) {
     auto               result = mp.insert(mp.end(), value);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Strong guarantee
     ASSERT_EQ(3, mp.size());
@@ -493,7 +493,7 @@ TEST(multimap, insert_iter_iter) {
                             test_iterator_helper::tst_input_iterator<t_value_type *>(ar + sizeof(ar) / sizeof(ar[0])));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     EXPECT_EQ(4, mp.size()); // only two successful insertion
   }
@@ -708,7 +708,7 @@ TEST(multimap, emplace) {
       ::portable_stl::forward_as_tuple());
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     EXPECT_EQ(ref_size, mp.size());
   }

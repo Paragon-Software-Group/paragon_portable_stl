@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector_bool_constructor.cpp"
 // * 
@@ -149,7 +149,7 @@ TEST(vector_bool, make_vector_size) {
 
     auto result = ::portable_stl::vector<bool, TestBoolSimpleAlloc>::make_vector(3);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // reaching max_size
@@ -258,7 +258,7 @@ TEST(vector_bool, make_vector_size_alloc) {
 
     auto result = ::portable_stl::vector<bool, TestBoolAlloc>::make_vector(3, alloc1);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // too much
@@ -365,7 +365,7 @@ TEST(vector_bool, make_vector_size_value) {
 
     auto result = ::portable_stl::vector<bool, TestBoolSimpleAlloc>::make_vector(3, true);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // reaching max_size
@@ -486,7 +486,7 @@ TEST(vector_bool, make_vector_size_value_alloc) {
 
     auto result = ::portable_stl::vector<bool, TestBoolAlloc>::make_vector(10, true, alloc1);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // reaching max_size
@@ -683,7 +683,7 @@ TEST(vector_bool, make_vector_iter_iter) {
       test_iterator_helper::tst_input_iterator<bool const *>(an));
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // bad allocation forward_iterator
@@ -695,7 +695,7 @@ TEST(vector_bool, make_vector_iter_iter) {
       test_iterator_helper::tst_forward_iterator<bool const *>(an));
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // reaching max_size forward_iterator
@@ -1005,7 +1005,7 @@ TEST(vector_bool, make_vector_initializer_list) {
       = ::portable_stl::vector<bool, TestBoolSimpleAlloc>::make_vector({true, false, true, false, true, false});
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // max_size
@@ -1112,7 +1112,7 @@ TEST(vector_bool, make_vector_initializer_list_alloc) {
       = ::portable_stl::vector<bool, TestBoolSimpleAlloc>::make_vector({true, false, true, false, true, false}, alloc2);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // max_size
@@ -1200,7 +1200,7 @@ TEST(vector_bool, make_vector_lvalue_vector) {
     TestUIntSimpleAlloc::m_counter_ok_allocation = 100;
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // max_size
@@ -1292,7 +1292,7 @@ TEST(vector_bool, make_vector_lvalue_vector_alloc) {
     TestUIntSimpleAlloc::m_counter_ok_allocation = 100;
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // max_size

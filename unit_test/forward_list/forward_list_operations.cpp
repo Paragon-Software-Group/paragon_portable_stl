@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="forward_list_operations.cpp"
 // * 
@@ -246,9 +246,8 @@ template<class t_list> void test_splice_after_diff2(t_list const &lst, std::int3
     ASSERT_EQ(arr1[n1], *iter);
   }
 
-  for (std::int32_t n2{f}; n2 < (f + 1); ++n2, ++iter) {
-    ASSERT_EQ(arr2[n2], *iter);
-  }
+  ASSERT_EQ(arr2[f], *iter);
+  ++iter;
 
   for (; n1 < size_arr1; ++n1, ++iter) {
     ASSERT_EQ(arr1[n1], *iter);
@@ -259,37 +258,44 @@ template<class t_list> void test_splice_after_diff2(t_list const &lst, std::int3
 
 template<class t_list> void test_splice_after_same1(t_list const &lst, std::int32_t pos, std::int32_t f) {
   typename t_list::const_iterator iter = lst.begin();
-  std::int32_t                    n{0};
   if ((pos == f) || (pos == (f + 1))) {
-    for (n = 0; n < size_arr1; ++n, ++iter) {
+    for (std::int32_t n{0}; n < size_arr1; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
   } else if (pos < f) {
-    for (n = 0; n < pos; ++n, ++iter) {
+    for (std::int32_t n{0}; n < pos; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = f; n < f + 1; ++n, ++iter) {
-      ASSERT_EQ(*iter, arr1[n]);
+    {
+      ASSERT_EQ(*iter, arr1[f]);
+      ++iter;
     }
-    for (n = pos; n < f; ++n, ++iter) {
+    for (std::int32_t n{pos}; n < f; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = f + 1; n < size_arr1; ++n, ++iter) {
-      ASSERT_EQ(*iter, arr1[n]);
+    for (std::int32_t n{f}; n < (size_arr1 - 1); ++n) {
+      ASSERT_EQ(*iter, arr1[n + 1]);
+      ++iter;
     }
-  } else // pos > f+1
-  {
-    for (n = 0; n < f; ++n, ++iter) {
+  } else { // pos > f+1
+    for (std::int32_t n{0}; n < f; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = f + 1; n < pos; ++n, ++iter) {
+    for (std::int32_t n{f + 1}; n < pos; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = f; n < f + 1; ++n, ++iter) {
-      ASSERT_EQ(*iter, arr1[n]);
+    {
+      ASSERT_EQ(*iter, arr1[f]);
+      ++iter;
     }
-    for (n = pos; n < size_arr1; ++n, ++iter) {
+    for (std::int32_t n{pos}; n < size_arr1; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
   }
   ASSERT_EQ(size_arr1, ::portable_stl::distance(lst.begin(), lst.end()));
@@ -320,38 +326,46 @@ template<class t_list>
 void test_splice_after_same2(t_list const &lst, std::ptrdiff_t pos, std::ptrdiff_t first, std::ptrdiff_t last) {
   typename t_list::const_iterator iter = lst.begin();
   std::ptrdiff_t                  n{0};
-  std::ptrdiff_t                  d{last > (first + 1) ? (last - 1) - first : 0};
+  std::ptrdiff_t                  d{first < (last - 1) ? (last - 1) - first : 0};
 
   if ((d == 0) || (pos == first)) {
-    for (n = 0; n < size_arr1; ++n, ++iter) {
+    for (n = 0; n < size_arr1; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
   } else if (pos < first) {
-    for (n = 0; n < pos; ++n, ++iter) {
+    for (n = 0; n < pos; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = first; n < last - 1; ++n, ++iter) {
+    for (n = first; n < (last - 1); ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = pos; n < first; ++n, ++iter) {
+    for (n = pos; n < first; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = last - 1; n < size_arr1; ++n, ++iter) {
-      ASSERT_EQ(*iter, arr1[n]);
+    for (n = last; n < (size_arr1 - 1); ++n) {
+      ASSERT_EQ(*iter, arr1[n - 1]);
+      ++iter;
     }
-  } else // pos > first
-  {
-    for (n = 0; n < first; ++n, ++iter) {
+  } else { // pos > first
+    for (n = 0; n < first; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = last - 1; n < pos; ++n, ++iter) {
+    for (n = last - 1; n < pos; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = first; n < last - 1; ++n, ++iter) {
+    for (n = first; n < (last - 1); ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
-    for (n = pos; n < size_arr1; ++n, ++iter) {
+    for (n = pos; n < size_arr1; ++n) {
       ASSERT_EQ(*iter, arr1[n]);
+      ++iter;
     }
   }
   ASSERT_EQ(size_arr1, ::portable_stl::distance(lst.begin(), lst.end()));
@@ -396,7 +410,7 @@ TEST(forward_list, splice_after_list_iter) {
   }
 
   // splicing within same container
-  for (std::int32_t f{0}; f <= test_forward_list::size_arr1 - 1; ++f) {
+  for (std::int32_t f{0}; f <= (test_forward_list::size_arr1 - 1); ++f) {
     for (std::int32_t pos{0}; pos <= test_forward_list::size_arr1; ++pos) {
       ::portable_stl::forward_list<std::int32_t> lst1(std::begin(test_forward_list::arr1),
                                                       std::end(test_forward_list::arr1));
@@ -413,8 +427,8 @@ TEST(forward_list, splice_after_list_iter_iter) {
   static_cast<void>(test_info_);
 
   // splicing different containers
-  for (std::ptrdiff_t first{0}; first <= test_forward_list::size_arr2 + 1; ++first) {
-    for (std::ptrdiff_t last{first}; last <= test_forward_list::size_arr2 + 1; ++last) {
+  for (std::ptrdiff_t first{0}; first <= (test_forward_list::size_arr2 + 1); ++first) {
+    for (std::ptrdiff_t last{first}; last <= (test_forward_list::size_arr2 + 1); ++last) {
       for (std::ptrdiff_t pos{0}; pos <= test_forward_list::size_arr1; ++pos) {
         ::portable_stl::forward_list<std::int32_t> lst1(std::begin(test_forward_list::arr1),
                                                         std::end(test_forward_list::arr1));
@@ -431,8 +445,8 @@ TEST(forward_list, splice_after_list_iter_iter) {
   }
 
   // splicing within same container
-  for (std::ptrdiff_t first{0}; first <= test_forward_list::size_arr1 + 1; ++first) {
-    for (std::ptrdiff_t last{first}; last <= test_forward_list::size_arr1; ++last) {
+  for (std::ptrdiff_t first{0}; first <= (test_forward_list::size_arr1 + 1); ++first) {
+    for (std::ptrdiff_t last{first}; last <= (test_forward_list::size_arr1); ++last) {
       for (std::ptrdiff_t pos{0}; pos <= first; ++pos) {
         ::portable_stl::forward_list<std::int32_t> lst1(std::begin(test_forward_list::arr1),
                                                         std::end(test_forward_list::arr1));
@@ -491,7 +505,7 @@ public:
 template<class t_list>
 void do_remove(
   t_list &lst, typename t_list::value_type const &value, typename t_list::value_type const &expected_removed) {
-  auto old_size = static_cast<typename t_list::size_type>(::portable_stl::distance(lst.begin(), lst.end()));
+  auto old_size = ::portable_stl::distance(lst.begin(), lst.end());
 
   ASSERT_TRUE((std::is_same<decltype(lst.remove(value)), typename t_list::size_type>{}));
 
@@ -604,9 +618,6 @@ TEST(forward_list, remove) {
 }
 
 namespace test_forward_list_helper {
-static bool even(std::int32_t i) {
-  return i % 2 == 0;
-}
 
 static bool g(std::int32_t i) {
   return i < 3;
@@ -673,7 +684,7 @@ using Predicate = unary_counting_predicate<bool (*)(std::int32_t), std::int32_t>
 
 template<class t_list, class t_pred>
 void do_remove_if(t_list &lst, t_pred pred, typename t_list::value_type const &expected_removed) {
-  auto old_size = static_cast<typename t_list::size_type>(::portable_stl::distance(lst.begin(), lst.end()));
+  auto old_size = ::portable_stl::distance(lst.begin(), lst.end());
 
   ASSERT_TRUE((std::is_same<decltype(lst.remove_if(pred)), typename t_list::size_type>{}));
 
@@ -868,10 +879,10 @@ static bool greater(SortPayload const &lhs, SortPayload const &rhs) {
 static void test_stable(std::int32_t num) {
   std::mt19937 randomness;
 
-  using t_type       = SortPayload;
-  using t_forward_list       = ::portable_stl::forward_list<t_type>;
-  using t_vector     = ::portable_stl::vector<t_type>;
-  using t_vector_std = std::vector<t_type>;
+  using t_type         = SortPayload;
+  using t_forward_list = ::portable_stl::forward_list<t_type>;
+  using t_vector       = ::portable_stl::vector<t_type>;
+  using t_vector_std   = std::vector<t_type>;
 
   t_vector_std vec_std;
   for (std::int32_t i{0}; i < num; ++i) {
@@ -893,7 +904,7 @@ static void test_stable(std::int32_t num) {
   ASSERT_EQ(num, ::portable_stl::distance(lst.begin(), lst.end()));
 
   //  Are we sorted?
-  typename t_forward_list::const_iterator j = lst.begin();
+  t_forward_list::const_iterator j = lst.begin();
   for (std::int32_t i{0}; i < num; ++i, ++j) {
     ASSERT_EQ((i / 2), j->getVal());
   }
@@ -910,10 +921,10 @@ static void test_stable(std::int32_t num) {
 static void test_stable2(std::int32_t num) {
   std::mt19937 randomness;
 
-  using t_type       = SortPayload;
-  using t_forward_list       = ::portable_stl::forward_list<t_type>;
-  using t_vector     = ::portable_stl::vector<t_type>;
-  using t_vector_std = std::vector<t_type>;
+  using t_type         = SortPayload;
+  using t_forward_list = ::portable_stl::forward_list<t_type>;
+  using t_vector       = ::portable_stl::vector<t_type>;
+  using t_vector_std   = std::vector<t_type>;
 
   t_vector_std vec_std;
   for (std::int32_t i{0}; i < num; ++i) {
@@ -935,7 +946,7 @@ static void test_stable2(std::int32_t num) {
   ASSERT_EQ(num, ::portable_stl::distance(lst.begin(), lst.end()));
 
   //  Are we sorted?
-  typename t_forward_list::const_iterator j = lst.begin();
+  t_forward_list::const_iterator j = lst.begin();
   for (std::int32_t i{0}; i < num; ++i, ++j) {
     ASSERT_EQ(j->getVal(), (num - 1 - i) / 2);
   }

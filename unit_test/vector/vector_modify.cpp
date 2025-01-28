@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector_modify.cpp"
 // * 
@@ -137,7 +137,7 @@ TEST(vector, emplace_back_bad_allocation) {
 
     auto result = vec.emplace_back(1);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // check roll-back invariant
     EXPECT_EQ(3, vec.size());
@@ -987,7 +987,7 @@ TEST(vector, push_back_lvalue_bad) {
     auto result                        = vec.push_back(value);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check vector invariant
     ASSERT_EQ(10, vec.size());
@@ -1092,7 +1092,7 @@ TEST(vector, push_back_rvalue_bad) {
     auto result                        = vec.push_back(4);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check vector invariant
     ASSERT_EQ(10, vec.size());

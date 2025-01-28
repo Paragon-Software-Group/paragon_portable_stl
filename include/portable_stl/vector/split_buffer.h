@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="split_buffer.h"
 // * 
@@ -298,7 +298,7 @@ split_buffer<t_type, t_allocator> split_buffer<t_type, t_allocator>::make_split_
     buf.end_cap()           = buf.m_first + capacity;
   }
   // return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-  // ::portable_stl::portable_stl_error::vector_allocate_error};
+  // ::portable_stl::portable_stl_error::allocate_error};
 
   return buf;
 }

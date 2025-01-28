@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="reference_wrapper.h"
 // * 
@@ -17,8 +17,12 @@
 #include "../../../metaprogramming/other_transformations/enable_if_bool_constant.h"
 #include "../../../metaprogramming/other_transformations/remove_cvref.h"
 #include "../../../metaprogramming/type_relations/is_same.h"
+#include "../../../metaprogramming/type_relations/is_nothrow_invocable.h"
 #include "../declval.h"
 #include "../forward.h"
+#include "invoke_impl.h"
+#include "weak_result_type.h"
+
 namespace portable_stl {
 
 namespace utility_general_helpers {
@@ -47,12 +51,12 @@ namespace utility_general_helpers {
  *
  * @tparam t_type The given type.
  */
-template<class t_type> class reference_wrapper final {
+template<class t_type> class reference_wrapper  {
   /**
    * @brief "Stores" reference as pointer.
    *
    */
-  t_type *ptr_;
+  t_type *m_ptr;
 
 public:
   /**
@@ -72,7 +76,7 @@ public:
                               ::portable_stl::is_same<reference_wrapper, ::portable_stl::remove_cvref_t<u_type>>>>())>
   reference_wrapper(u_type &&u) noexcept(
     noexcept(utility_general_helpers::FUN<t_type>(::portable_stl::forward<u_type>(u))))
-      : ptr_(::portable_stl::addressof(utility_general_helpers::FUN<t_type>(::portable_stl::forward<u_type>(u)))) {
+      : m_ptr(::portable_stl::addressof(utility_general_helpers::FUN<t_type>(::portable_stl::forward<u_type>(u)))) {
   }
 
   /**
@@ -115,7 +119,7 @@ public:
    * @return t_type & Value.
    */
   constexpr operator t_type &() const noexcept {
-    return *ptr_;
+    return *m_ptr;
   }
 
   /**
@@ -124,7 +128,14 @@ public:
    * @return t_type & Value.
    */
   constexpr t_type &get() const noexcept {
-    return *ptr_;
+    return *m_ptr;
+  }
+
+  template<class... t_args>
+  typename ::portable_stl::invoke_of<t_type &, t_args...>::type operator()(t_args &&...args) const
+      noexcept(::portable_stl::is_nothrow_invocable<t_type&, t_args...>{}())
+  {
+    return ::portable_stl::functional_helper::invoke_impl(get(), ::portable_stl::forward<t_args>(args)...);
   }
 };
 
@@ -186,4 +197,5 @@ template<class t_type> void ref(t_type const &&) = delete;
  */
 template<class t_type> void cref(t_type &&) = delete;
 } // namespace portable_stl
+
 #endif // PSTL_REFERENCE_WRAPPER_H

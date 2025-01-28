@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector_bool_insert.cpp"
 // * 
@@ -92,7 +92,7 @@ TEST(vector_bool, insert_iter_value) {
     TestUIntSimpleAlloc::m_counter_ok_allocation = 0;
     auto result                                  = vec.insert(vec.cbegin() + pos, true);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // check invariant
     EXPECT_EQ(old_size, vec.size());
@@ -198,7 +198,7 @@ TEST(vector_bool, insert_iter_count_value) {
     TestUIntSimpleAlloc::m_counter_ok_allocation = 0;
     auto result                                  = vec.insert(vec.cbegin() + pos, count, true);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // check invariant
     EXPECT_EQ(old_size, vec.size());
@@ -313,7 +313,7 @@ TEST(vector_bool, insert_iter_iter_iter_input_iterators) {
                              test_iterator_helper::tst_input_iterator<bool const *>(a),
                              test_iterator_helper::tst_input_iterator<bool const *>(a + count));
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // check invariant
     EXPECT_EQ(old_cap, vec.capacity());
@@ -333,7 +333,7 @@ TEST(vector_bool, insert_iter_iter_iter_input_iterators) {
                              test_iterator_helper::tst_input_iterator<bool const *>(a),
                              test_iterator_helper::tst_input_iterator<bool const *>(a + count));
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // check invariant
     EXPECT_EQ(old_cap, vec.capacity());
@@ -423,7 +423,7 @@ TEST(vector_bool, insert_iter_iter_iter_forward_iterators) {
                              test_iterator_helper::tst_forward_iterator<bool const *>(a),
                              test_iterator_helper::tst_forward_iterator<bool const *>(a + count));
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // check invariant
     EXPECT_EQ(old_cap, vec.capacity());

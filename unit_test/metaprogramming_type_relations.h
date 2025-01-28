@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="metaprogramming_type_relations.h"
 // * 
@@ -28,6 +28,22 @@ inline void metaprogramming_type_relations_is_same_inline_variables() {
  *
  */
 inline void metaprogramming_type_relations_is_base_of_inline_variables() {
+  ASSERT_TRUE(true);
+}
+
+/**
+ * @brief Additional test for inline variable
+ *
+ */
+inline void metaprogramming_type_relations_is_invocable_inline_variables() {
+  ASSERT_TRUE(true);
+}
+
+/**
+ * @brief Additional test for inline variable
+ *
+ */
+inline void metaprogramming_type_relations_is_invocable_r_inline_variables() {
   ASSERT_TRUE(true);
 }
 } // namespace test_metaprogramming_type_relations

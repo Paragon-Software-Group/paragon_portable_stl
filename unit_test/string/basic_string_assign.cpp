@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="basic_string_assign.cpp"
 // * 
@@ -491,7 +491,7 @@ TEST(basic_string, assign_count_char) {
 
     auto result = s.assign(25, 'g');
     EXPECT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());
@@ -507,7 +507,7 @@ TEST(basic_string, assign_count_char) {
 
     auto result = s.assign(25, 'g');
     EXPECT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -561,7 +561,7 @@ TEST(basic_string, assign_string) {
 
     auto result = s.assign(s1);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -577,7 +577,7 @@ TEST(basic_string, assign_string) {
 
     auto result = s.assign(s1);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());
@@ -647,7 +647,7 @@ TEST(basic_string, assign_string_pos_count) {
 
     auto result = s.assign(s1, 0, 50);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -676,7 +676,7 @@ TEST(basic_string, assign_string_pos_count) {
 
     auto result = s.assign(s1, 0, 50);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());
@@ -835,7 +835,7 @@ TEST(basic_string, assign_pointer_count) {
 
     auto result = s.assign(test_string_helper::test_string2, 50);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -851,7 +851,7 @@ TEST(basic_string, assign_pointer_count) {
 
     auto result = s.assign(test_string_helper::test_string2, 50);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());
@@ -902,7 +902,7 @@ TEST(basic_string, assign_pointer) {
 
     auto result = s.assign(test_string_helper::test_string2);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -918,7 +918,7 @@ TEST(basic_string, assign_pointer) {
 
     auto result = s.assign(test_string_helper::test_string2);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());
@@ -969,7 +969,7 @@ TEST(basic_string, assign_two_iter) {
 
     auto result = s.assign(&test_string_helper::test_string2[0], &test_string_helper::test_string2[50]);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -985,7 +985,7 @@ TEST(basic_string, assign_two_iter) {
 
     auto result = s.assign(&test_string_helper::test_string2[0], &test_string_helper::test_string2[50]);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());
@@ -1037,7 +1037,7 @@ TEST(basic_string, assign_initializer_list) {
     auto result = s.assign({'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3',
                             '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5'});
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -1054,7 +1054,7 @@ TEST(basic_string, assign_initializer_list) {
     auto result = s.assign({'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3',
                             '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5'});
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());
@@ -1108,7 +1108,7 @@ TEST(basic_string, assign_string_view) {
 
     auto result = s.assign(TStringView2(test_string_helper::test_string2));
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -1124,7 +1124,7 @@ TEST(basic_string, assign_string_view) {
 
     auto result = s.assign(TStringView2(test_string_helper::test_string2));
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());
@@ -1211,7 +1211,7 @@ TEST(basic_string, assign_string_view_pos_count) {
 
     auto result = s.assign(TStringView2(test_string_helper::test_string2), 0, 50);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(3, s.size());
@@ -1227,7 +1227,7 @@ TEST(basic_string, assign_string_view_pos_count) {
 
     auto result = s.assign(TStringView2(test_string_helper::test_string2), 0, 50);
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // same as before unsuccess assignment.
     ASSERT_EQ(30, s.size());

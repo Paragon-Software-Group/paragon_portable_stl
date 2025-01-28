@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="basic_string_access.cpp"
 // * 
@@ -146,24 +146,24 @@ TEST(basic_string, at) {
     try {
       test_string_helper::s1.at(10);
       EXPECT_TRUE(false);
-    } catch (::portable_stl::out_of_range<> e) {
+    } catch (::portable_stl::out_of_range<> &) {
     }
     try {
       test_string_helper::s2.at(60);
       EXPECT_TRUE(false);
-    } catch (::portable_stl::out_of_range<> e) {
+    } catch (::portable_stl::out_of_range<> &) {
     }
   }
   {
     try {
       test_string_helper::cs1.at(10);
       EXPECT_TRUE(false);
-    } catch (::portable_stl::out_of_range<> e) {
+    } catch (::portable_stl::out_of_range<> &) {
     }
     try {
       test_string_helper::cs2.at(60);
       EXPECT_TRUE(false);
-    } catch (::portable_stl::out_of_range<> e) {
+    } catch (::portable_stl::out_of_range<> &) {
     }
   }
 }

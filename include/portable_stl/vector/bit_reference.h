@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="bit_reference.h"
 // * 
@@ -257,7 +257,7 @@ public:
   }
 
   friend difference_type operator-(bit_iterator const &lhv, bit_iterator const &rhv) {
-    return ((lhv.m_seg - rhv.m_seg) * static_cast<difference_type>(m_bits_per_word)
+    return (::portable_stl::distance(rhv.m_seg , lhv.m_seg) * static_cast<difference_type>(m_bits_per_word)
             + static_cast<difference_type>(lhv.m_ctz) - static_cast<difference_type>(rhv.m_ctz));
   }
 

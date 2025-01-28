@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="basic_string_replace.cpp"
 // * 
@@ -30,7 +30,7 @@ static void replace_pos_count_string_view(
     EXPECT_EQ(expected, str) << str.size();
   } else {
     EXPECT_EQ(s0, str) << str.size();
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   TMManager::m_counter_ok_allocation = 100;
@@ -342,7 +342,7 @@ TEST(basic_string, replace_pos_count_count2_char) {
     auto result = s.replace(3, 4, 20, 'a');
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::string_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
     ASSERT_EQ(0, s.check_invariants());
     EXPECT_EQ(TString{"1234567890"}, s);
   }

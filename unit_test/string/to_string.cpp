@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="to_string.cpp"
 // * 
@@ -118,12 +118,10 @@ template<class t_type> void test_unsigned() {
 TEST(string, to_string_integer) {
   static_cast<void>(test_info_);
 
-  test_signed<int>();
-  test_signed<long>();
-  test_signed<long long>();
-  test_unsigned<unsigned int>();
-  test_unsigned<unsigned long>();
-  test_unsigned<unsigned long long>();
+  test_signed<std::int32_t>();
+  test_signed<std::int64_t>();
+  test_unsigned<std::uint32_t>();
+  test_unsigned<std::uint64_t>();
 }
 
 template<class t_string, class t_type> void test_to_string2(t_type value, t_string const &ref) {

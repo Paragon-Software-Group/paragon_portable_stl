@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="map_construction.cpp"
 // * 
@@ -199,7 +199,7 @@ TEST(map, make_map_iter_iter) {
         test_map_helper::arr, test_map_helper::arr_end);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     t_tree_allocator_const_key::m_counter_ok_allocation = 10000;
   }
@@ -260,7 +260,7 @@ TEST(map, make_map_iter_iter_comp) {
       test_map_helper::arr, test_map_helper::arr_end, t_compare(3));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     t_tree_allocator_const_key::m_counter_ok_allocation = 10000;
   }
@@ -323,7 +323,7 @@ TEST(map, make_map_iter_iter_allocator) {
       test_map_helper::arr, test_map_helper::arr_end, alloc);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -387,7 +387,7 @@ TEST(map, make_map_iter_iter_comp_alloc) {
       test_map_helper::arr, test_map_helper::arr_end, t_compare(3), alloc);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 

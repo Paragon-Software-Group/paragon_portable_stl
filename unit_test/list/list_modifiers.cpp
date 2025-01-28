@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="list_modifiers.cpp"
 // * 
@@ -126,7 +126,7 @@ TEST(list, push_back_lvalue) {
     auto result = lst.push_back(value);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(7, lst.size());
@@ -177,7 +177,7 @@ TEST(list, push_back_rvalue) {
     auto result = lst.push_back(t_move_only(7));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(7, lst.size());
@@ -236,7 +236,7 @@ TEST(list, push_front_lvalue) {
     auto result = lst.push_front(value);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(7, lst.size());
@@ -287,7 +287,7 @@ TEST(list, push_front_rvalue) {
     auto result = lst.push_front(t_move_only(7));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(7, lst.size());
@@ -331,7 +331,7 @@ TEST(list, insert_pos_value) {
     std::int32_t value{4};
     auto         result = lst.insert(::portable_stl::next(lst.cbegin()), value);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(lst_ref, lst);
@@ -379,7 +379,7 @@ TEST(list, insert_pos_rvalue) {
     stat.m_throw_after = 0;
     result             = lst.insert(lst.cbegin(), t_move_only(2));
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(1, lst.size());
@@ -420,7 +420,7 @@ TEST(list, insert_pos_count_value) {
     stat.m_throw_after = 3;
     auto result        = lst.insert(::portable_stl::next(lst.cbegin()), 4, 3);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(lst_ref, lst);
@@ -492,7 +492,7 @@ TEST(list, insert_pos_iter_iter) {
                              test_iterator_helper::tst_input_iterator<std::int32_t *>(arr),
                              test_iterator_helper::tst_input_iterator<std::int32_t *>(arr + arr_size));
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(lst_ref, lst);
@@ -591,7 +591,7 @@ TEST(list, emplace) {
     stat.m_throw_after = 0;
     auto result        = lst.emplace(lst.begin(), 9, 9.5);
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::node_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     /* Strong exception guarantee*/
     ASSERT_EQ(3, lst.size());

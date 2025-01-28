@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="basic_string.h"
 // * 
@@ -297,7 +297,7 @@ public:
     if ((count + 1) > ret_string.m_storage.capacity()) {
       if (!ret_string.m_storage.reserve(count + 1)) {
         return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-          ::portable_stl::portable_stl_error::string_allocate_error};
+          ::portable_stl::portable_stl_error::allocate_error};
       }
     }
     ret_string.m_storage.set_size(count);
@@ -465,7 +465,7 @@ public:
     if ((count + 1) > ret_string.m_storage.capacity()) {
       if (!ret_string.m_storage.reserve(count + 1)) {
         return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-          ::portable_stl::portable_stl_error::string_allocate_error};
+          ::portable_stl::portable_stl_error::allocate_error};
       }
     }
     ret_string.m_storage.set_size(count);
@@ -1356,7 +1356,7 @@ public:
       static_cast<void>(traits_type::assign(&(*begin()) + index, count, ch));
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::string_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     return ::portable_stl::expected<string_reference_wrap, ::portable_stl::portable_stl_error>{
       ::portable_stl::ref(*this)};
@@ -1383,7 +1383,7 @@ public:
       ::portable_stl::memcpy((begin() + static_cast<difference_type>(index)).operator->(), sv.begin(), sv.size());
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::string_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     return ::portable_stl::expected<string_reference_wrap, ::portable_stl::portable_stl_error>{
       ::portable_stl::ref(*this)};
@@ -1651,7 +1651,7 @@ public:
       }
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::string_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     return ::portable_stl::expected<string_reference_wrap, ::portable_stl::portable_stl_error>{
       ::portable_stl::ref(*this)};
@@ -1681,7 +1681,7 @@ public:
       }
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::string_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     return ::portable_stl::expected<string_reference_wrap, ::portable_stl::portable_stl_error>{
       ::portable_stl::ref(*this)};
@@ -1889,7 +1889,7 @@ public:
       ::portable_stl::memcpy((begin() + static_cast<difference_type>(pos)).operator->(), sv.begin(), sv.size());
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::string_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     return ::portable_stl::expected<string_reference_wrap, ::portable_stl::portable_stl_error>{
       ::portable_stl::ref(*this)};
@@ -1915,7 +1915,7 @@ public:
       ::portable_stl::memset((begin() + static_cast<difference_type>(pos)).operator->(), ch, count2);
     } else {
       return ::portable_stl::unexpected<::portable_stl::portable_stl_error>{
-        ::portable_stl::portable_stl_error::string_allocate_error};
+        ::portable_stl::portable_stl_error::allocate_error};
     }
     return ::portable_stl::expected<string_reference_wrap, ::portable_stl::portable_stl_error>{
       ::portable_stl::ref(*this)};

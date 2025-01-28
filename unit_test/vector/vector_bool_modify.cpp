@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="vector_bool_modify.cpp"
 // * 
@@ -74,7 +74,7 @@ TEST(vector_bool, emplace_back_bad_alloc) {
     auto result                                  = vec.emplace_back(true);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 }
 
@@ -185,7 +185,7 @@ TEST(vector_bool, assign_count_value) {
     auto result                                  = vec.assign(num, true);
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
   }
 
   // reaching max_size
@@ -324,7 +324,7 @@ TEST(vector_bool, assign_inputiter_inputiter) {
     auto result                                  = vec.assign(t_input_iter(a2), t_input_iter(a2n));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
     EXPECT_TRUE(vec.size() <= vec.capacity());
   }
 }
@@ -450,7 +450,7 @@ TEST(vector_bool, assign_forwarditer_forwarditer) {
     auto result                                  = vec.assign(t_forward_iter(a2), t_forward_iter(a2n));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
     EXPECT_TRUE(vec.size() <= vec.capacity());
   }
 
@@ -463,7 +463,7 @@ TEST(vector_bool, assign_forwarditer_forwarditer) {
     auto result                                  = vec.assign(t_forward_iter(a2), t_forward_iter(a2n));
 
     ASSERT_FALSE(result);
-    ASSERT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    ASSERT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
     EXPECT_TRUE(vec.size() <= vec.capacity());
   }
 
@@ -625,7 +625,7 @@ TEST(vector_bool, push_back) {
     auto result                                  = vec.push_back(true);
 
     ASSERT_FALSE(result);
-    EXPECT_EQ(::portable_stl::portable_stl_error::vector_allocate_error, result.error());
+    EXPECT_EQ(::portable_stl::portable_stl_error::allocate_error, result.error());
 
     // Check vector invariant
     ASSERT_EQ(old_size, vec.size());

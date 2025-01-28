@@ -1,5 +1,5 @@
 // ***************************************************************************
-// * Copyright (c) 2024 Paragon Software Group
+// * Copyright (c) 2024-2025 Paragon Software Group
 // *
 // * Project="Paragon Portable STL" File="metaprogramming_other_transformations.cpp"
 // * 
@@ -428,17 +428,6 @@ TEST(metaprogramming_other_transformations, invoke_result) {
     static_cast<void>(instance(0U));
     static_cast<void>(instance(0, 0));
   }
-  {
-    /**
-     * @brief Helper type.
-     */
-    using test_result = ::portable_stl::other_transformations_helper::is_reference_wrapper<std::uint32_t>;
-    /**
-     * @brief Helper type.
-     */
-    using test_type   = typename test_result::type;
-    ASSERT_TRUE((std::is_same<::portable_stl::false_type, test_type>{}));
-  }
 
   ASSERT_TRUE(
     (std::is_same<std::int32_t,
@@ -455,7 +444,7 @@ TEST(metaprogramming_other_transformations, invoke_result) {
                             ::portable_stl::invoke_result_t<
                               decltype(&metaprogramming_other_transformations_helpers::ClassWithMemberFunction::func),
                               metaprogramming_other_transformations_helpers::ClassWithMemberFunction,
-                              std::uint32_t>>{}));
+                              std::int32_t>>{}));
 }
 
 namespace metaprogramming_other_transformations_helpers {} // namespace metaprogramming_other_transformations_helpers
