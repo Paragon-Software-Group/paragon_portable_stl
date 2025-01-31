@@ -7,45 +7,44 @@ The following is a list of implemented components with references to STL documen
 *While PSTL covers most essential components, some features have been excluded as they are either unnecessary for the target environments or planned for future consideration.*
 
 
-- [algorithm](https://en.cppreference.com/w/cpp/header/algorithm){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/algorithm" target="_blank">algorithm</a>
 
-- [array](https://en.cppreference.com/w/cpp/header/array){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/array" target="_blank">array</a>
 
-- [common](https://en.cppreference.com/w/cpp/header/common){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/common" target="_blank">common</a>
 
-- [compare](https://en.cppreference.com/w/cpp/header/compare){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/compare" target="_blank">compare</a>
 
-- [concepts](https://en.cppreference.com/w/cpp/header/concepts){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/concepts" target="_blank">concepts</a>
 
-- [containers](https://en.cppreference.com/w/cpp/header/containers){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/containers" target="_blank">containers</a>
 
-- [error](https://en.cppreference.com/w/cpp/header/error){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/error" target="_blank">error</a>
 
-- [functional](https://en.cppreference.com/w/cpp/header/functional){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/functional" target="_blank">functional</a>
 
-- [iterator](https://en.cppreference.com/w/cpp/header/iterator){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/iterator" target="_blank">iterator</a>
 
-- [language_support](https://en.cppreference.com/w/cpp/header/language_support){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/language_support" target="_blank">language_support</a>
 
-- [limits](https://en.cppreference.com/w/cpp/header/limits){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/limits" target="_blank">limits</a>
 
-- [list](https://en.cppreference.com/w/cpp/header/list){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/list" target="_blank">list</a>
 
-- [map](https://en.cppreference.com/w/cpp/header/map){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/map" target="_blank">map</a>
 
-- [memory](https://en.cppreference.com/w/cpp/header/memory){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/memory" target="_blank">memory</a>
 
-- [metaprogramming](https://en.cppreference.com/w/cpp/header/metaprogramming){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/metaprogramming" target="_blank">metaprogramming</a>
 
-- [ranges](https://en.cppreference.com/w/cpp/header/ranges){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/ranges" target="_blank">ranges</a>
 
-- [set](https://en.cppreference.com/w/cpp/header/set){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/set" target="_blank">set</a>
 
-- [string](https://en.cppreference.com/w/cpp/header/string){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/string" target="_blank">string</a>
 
-- [utility](https://en.cppreference.com/w/cpp/header/utility){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/utility" target="_blank">utility</a>
 
-- [variant](https://en.cppreference.com/w/cpp/header/variant){:target="_blank"}
+- <a href="https://en.cppreference.com/w/cpp/header/variant" target="_blank">variant</a>
 
-- [vector](https://en.cppreference.com/w/cpp/header/vector){:target="_blank"}
-
+- <a href="https://en.cppreference.com/w/cpp/header/vector" target="_blank">vector</a>

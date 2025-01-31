@@ -45,11 +45,11 @@ Supports modern C++ standards (C++14 and selected features from C++17, C++20, an
 
   - **Japanese Embedded Software Standards (PDFs)**: 
   
-    - [Embedded System Development Process Reference Guide](https://www.ipa.go.jp/archive/publish/qv6pgp0000000y6r-att/000028853.pdf){:target="_blank"}
-  
-    - [Embedded System Development Coding Reference Guide](https://www.ipa.go.jp/archive/publish/qv6pgp00000010td-att/000055042.pdf){:target="_blank"}
-  
-    - [Embedded System Development Quality Reference Guide](https://www.ipa.go.jp/archive/publish/qv6pgp0000000zwm-att/000028859.pdf){:target="_blank"}
+    - <a href="https://www.ipa.go.jp/archive/publish/qv6pgp0000000y6r-att/000028853.pdf" target="_blank">Embedded System Development Process Reference Guide</a>  
+
+    - <a href="https://www.ipa.go.jp/archive/publish/qv6pgp00000010td-att/000055042.pdf" target="_blank">Embedded System Development Coding Reference Guide</a>  
+
+    - <a href="https://www.ipa.go.jp/archive/publish/qv6pgp0000000zwm-att/000028859.pdf" target="_blank">Embedded System Development Quality Reference Guide</a>
 
 - **Error Handling:**  
   Flexible mechanisms to switch between exceptions and error codes, tailored for different environments.
